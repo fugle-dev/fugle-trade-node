@@ -39,6 +39,7 @@
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.32.0",
     "jest": "^27.1.1",
+    "jest-websocket-mock": "^2.3.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",

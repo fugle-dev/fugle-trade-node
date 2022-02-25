@@ -37,6 +37,7 @@
     "@types/ws": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
+    "codecov": "^3.8.3",
     "eslint": "^7.32.0",
     "jest": "^27.1.1",
     "jest-websocket-mock": "^2.3.0",

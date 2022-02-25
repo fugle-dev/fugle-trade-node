@@ -51,16 +51,18 @@ export class Streamer {
     return this.emitter.listenerCount(eventName);
   }
 
-  connect(): void {
+  connect(): this {
     this[SOCKET] = new WebSocket(this.url);
     this.socket.onopen = () => this.emitter.emit(CONNECT_EVENT);
     this.socket.onmessage = message => this.emitter.emit(MESSAGE_EVENT, message.data);
     this.socket.onerror = () => this.emitter.emit(ERROR_EVENT);
     this.socket.onclose = () => this.emitter.emit(DISCONNECT_EVENT);
+    return this;
   }
 
-  disconnect(): void {
+  disconnect(): this {
     this.socket.close();
+    return this;
   }
 
   private handleMessage(message: any): void {

@@ -15,7 +15,7 @@ $ npm install --save @fugle/trade
 ## Getting Started
 
 ```js
-import { FugleTrade } from '@fugle/trade';
+import { FugleTrade, Order } from '@fugle/trade';
 
 const fugle = new FugleTrade({
   configPath: '/path/to/config.ini',
@@ -28,17 +28,19 @@ fugle.login('YOUR_ACCOUNT', 'YOUR_PASSWORD').then(() => {
   fugle.streamer.on('connect', () => {
     console.log('streamer connected');
 
-    // place order
-    fugle.placeOrder({
-        buySell: 'B',
-        price: '28.00',
+    const order = new Order({
+        buySell: Order.Side.Buy,
+        price: 25.00,
         stockNo: '2884',
-        quantity: '1',
-        apCode: '1',
-        priceFlag: '0',
-        bsFlag: 'R',
-        trade: '0',
+        quantity: 1,
+        apCode: Order.ApCode.Common,
+        priceFlag: Order.PriceFlag.Limit,
+        bsFlag: Order.BsFlag.ROD,
+        trade: Order.Trade.Cash,
     });
+
+    // place order
+    fugle.placeOrder(order);
   });
 
   fugle.streamer.on('disconnect', () => {

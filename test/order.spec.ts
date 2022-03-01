@@ -1,5 +1,4 @@
 import { Order } from '../src';
-import { OrderSide, ApCode, PriceFlag, BsFlag, Trade } from '../src/enums';
 
 describe('Order', () => {
   describe('#constructor()', () => {
@@ -11,14 +10,14 @@ describe('Order', () => {
 
     it('should create Order instance with payload', () => {
       const payload = {
-        buySell: OrderSide.Buy,
+        buySell: Order.Side.Buy,
         price: 25.00,
         stockNo: '2884',
         quantity: 1,
-        apCode: ApCode.Common,
-        priceFlag: PriceFlag.Limit,
-        bsFlag: BsFlag.ROD,
-        trade: Trade.Cash,
+        apCode: Order.ApCode.Common,
+        priceFlag: Order.PriceFlag.Limit,
+        bsFlag: Order.BsFlag.ROD,
+        trade: Order.Trade.Cash,
       };
       const order = new Order(payload);
       expect(order).toBeInstanceOf(Order);
@@ -38,7 +37,7 @@ describe('Order', () => {
   describe('.setSide()', () => {
     it('should set buySell of the payload', () => {
       const order = new Order();
-      const side = OrderSide.Buy;
+      const side = Order.Side.Buy;
       order.setSide(side);
       expect(order.payload.buySell).toBe(side);
     });
@@ -65,7 +64,7 @@ describe('Order', () => {
   describe('.setApCode()', () => {
     it('should set apCode of the payload', () => {
       const order = new Order();
-      const apCode = ApCode.Common;
+      const apCode = Order.ApCode.Common;
       order.setApCode(apCode);
       expect(order.payload.apCode).toBe(apCode);
     });
@@ -74,7 +73,7 @@ describe('Order', () => {
   describe('.setPriceFlag()', () => {
     it('should set priceFlag of the payload', () => {
       const order = new Order();
-      const priceFlag = PriceFlag.Limit;
+      const priceFlag = Order.PriceFlag.Limit;
       order.setPriceFlag(priceFlag);
       expect(order.payload.priceFlag).toBe(priceFlag);
     });
@@ -83,7 +82,7 @@ describe('Order', () => {
   describe('.setBsFlag()', () => {
     it('should set bsFlag of the payload', () => {
       const order = new Order();
-      const bsFlag = BsFlag.ROD;
+      const bsFlag = Order.BsFlag.ROD;
       order.setBsFlag(bsFlag);
       expect(order.payload.bsFlag).toBe(bsFlag);
     });
@@ -92,7 +91,7 @@ describe('Order', () => {
   describe('.setTrade()', () => {
     it('should set trade of the payload', () => {
       const order = new Order();
-      const trade = Trade.Cash;
+      const trade = Order.Trade.Cash;
       order.setTrade(trade);
       expect(order.payload.trade).toBe(trade);
     });
@@ -102,23 +101,23 @@ describe('Order', () => {
     it('should return OrderObject', () => {
       const order = new Order()
         .setSymbol('2884')
-        .setSide(OrderSide.Buy)
+        .setSide(Order.Side.Buy)
         .setPrice(25.00)
         .setQuantity(1)
-        .setApCode(ApCode.Common)
-        .setPriceFlag(PriceFlag.Limit)
-        .setBsFlag(BsFlag.ROD)
-        .setTrade(Trade.Cash)
+        .setApCode(Order.ApCode.Common)
+        .setPriceFlag(Order.PriceFlag.Limit)
+        .setBsFlag(Order.BsFlag.ROD)
+        .setTrade(Order.Trade.Cash)
 
       expect(order.payload).toEqual({
-        buySell: OrderSide.Buy,
+        buySell: Order.Side.Buy,
         price: 25.00,
         stockNo: '2884',
         quantity: 1,
-        apCode: ApCode.Common,
-        priceFlag: PriceFlag.Limit,
-        bsFlag: BsFlag.ROD,
-        trade: Trade.Cash,
+        apCode: Order.ApCode.Common,
+        priceFlag: Order.PriceFlag.Limit,
+        bsFlag: Order.BsFlag.ROD,
+        trade: Order.Trade.Cash,
       });
 
       expect(order.toObject()).toEqual({

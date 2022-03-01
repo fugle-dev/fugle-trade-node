@@ -3,7 +3,6 @@ import { Client } from '../src/client';
 import { Order } from '../src/order';
 import { Streamer } from '../src/streamer';
 import { readConfigFile } from '../src/utils';
-import { OrderSide, ApCode, PriceFlag, BsFlag, Trade } from '../src/enums';
 
 jest.mock('@fugle/trade-core', () => {
   return {
@@ -53,14 +52,14 @@ describe('Client', () => {
       const client = new Client(config);
       await client.login('account', 'password');
       const order = new Order({
-        buySell: OrderSide.Buy,
+        buySell: Order.Side.Buy,
         price: 25.00,
         stockNo: '2884',
         quantity: 1,
-        apCode: ApCode.Common,
-        priceFlag: PriceFlag.Limit,
-        bsFlag: BsFlag.ROD,
-        trade: Trade.Cash,
+        apCode: Order.ApCode.Common,
+        priceFlag: Order.PriceFlag.Limit,
+        bsFlag: Order.BsFlag.ROD,
+        trade: Order.Trade.Cash,
       });
       const response = await client.placeOrder(order);
       const data = readFileSync('./test/fixtures/response-place-order.txt').toString();

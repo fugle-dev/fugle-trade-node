@@ -1,8 +1,8 @@
-import { OrderSide, ApCode, PriceFlag, BsFlag, Trade } from '../enums';
+import { Side, ApCode, PriceFlag, BsFlag, Trade } from '../enums';
 
 export class Order {
   stockNo?: string;
-  buySell?: OrderSide;
+  buySell?: Side;
   price?: number;
   quantity?: number;
   apCode?: ApCode;

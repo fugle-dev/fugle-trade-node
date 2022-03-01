@@ -1,5 +1,6 @@
 import { CoreSdk, OrderObject, OrderResultObject } from '@fugle/trade-core';
 import { Streamer } from './streamer';
+import { Order } from './order';
 import { ClientConfig } from './interfaces/client-config.interface';
 import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interface';
 import { ParsedInventories, Stock } from './interfaces/parsed-inventories.interface';
@@ -11,8 +12,7 @@ import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.inte
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
 
-type Order = OrderObject;
-type ExistingOrder = OrderResultObject;
+
 type Range = '0d' | '3d' | '1m' | '3m';
 
 const SDK = Symbol('Client#sdk');
@@ -42,7 +42,7 @@ export class Client {
 
   // Must login first
   async placeOrder(order: Order): Promise<PlaceOrderResponse> {
-    const response = this.sdk.order(order);
+    const response = this.sdk.order(order.toObject());
     const parsed = JSON.parse(response) as ParsedPlaceOrderResponse;
     return parsed.data;
   }

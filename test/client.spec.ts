@@ -1,7 +1,9 @@
 import { readFileSync } from 'fs';
 import { Client } from '../src/client';
+import { Order } from '../src/order';
 import { Streamer } from '../src/streamer';
 import { readConfigFile } from '../src/utils';
+import { OrderSide, ApCode, PriceFlag, BsFlag, Trade } from '../src/enums';
 
 jest.mock('@fugle/trade-core', () => {
   return {
@@ -50,16 +52,16 @@ describe('Client', () => {
     it('should place order', async () => {
       const client = new Client(config);
       await client.login('account', 'password');
-      const order = {
-        buySell: 'B',
-        price: '25.00',
+      const order = new Order({
+        buySell: OrderSide.Buy,
+        price: 25.00,
         stockNo: '2884',
-        quantity: '1',
-        apCode: '1',
-        priceFlag: '0',
-        bsFlag: 'R',
-        trade: '0',
-      };
+        quantity: 1,
+        apCode: ApCode.Common,
+        priceFlag: PriceFlag.Limit,
+        bsFlag: BsFlag.ROD,
+        trade: Trade.Cash,
+      });
       const response = await client.placeOrder(order);
       const data = readFileSync('./test/fixtures/response-place-order.txt').toString();
       const parsed = JSON.parse(data);

@@ -1,7 +1,7 @@
 import { FugleTrade } from '../src';
 
 describe('FugleTrade', () => {
-  describe('constructor()', () => {
+  describe('#constructor()', () => {
     it('should create FugleTrade instance with config file', async () => {
       const fugle = new FugleTrade({
         configPath: './test/fixtures/config.ini',

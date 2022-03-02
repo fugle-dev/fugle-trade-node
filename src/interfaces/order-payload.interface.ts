@@ -1,6 +1,6 @@
 import { Side, ApCode, PriceFlag, BsFlag, Trade } from '../enums';
 
-export class Order {
+export interface OrderPayload {
   stockNo?: string;
   buySell?: Side;
   price?: number;

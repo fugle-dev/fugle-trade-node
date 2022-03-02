@@ -74,7 +74,7 @@ export class Client {
       if (options.price) return this.replacePrice(order, options.price);
       if (options.quantity) return this.replaceQuantity(order, options.quantity);
     }
-    throw new TypeError('One and only one of the "price" or "qty" options must be specified');
+    throw new TypeError('One and only one of the "price" or "quantity" options must be specified');
   }
 
   // Must login first

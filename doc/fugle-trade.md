@@ -16,6 +16,15 @@
   - [fugle.getKeyInfo()](#fuglegetkeyinfo)
   - [fugle.getMachineTime()](#fuglegetmachinetime)
   - [fugle.getCertInfo()](#fuglegetcertinfo)
+  - [fugle.streamer](#fuglestreamer)
+    - [Event: 'connect'](#event-connect)
+    - [Event: 'disconnect'](#event-disconnect)
+    - [Event: 'order'](#event-order)
+    - [Event: 'trade'](#event-trade)
+    - [Event: 'message'](#event-message)
+    - [Event: 'error'](#event-error)
+  - [fugle.streamer.connect()](#fuglestreamerconnect)
+  - [fugle.streamer.disconnect()](#fuglestreamerdisconnect)
 - [Class: Order](#class-order)
   - [Class property: Order.Side](#class-property-orderside)
   - [Class property: Order.ApCode](#class-property-orderapcode)
@@ -35,17 +44,17 @@
   
 ## Class: FugleTrade
 
-This class represents a FugleTrade client.
+This class represents a client that uses remote services from the server.
 
 ### Constructor: `new FugleTrade(options)`
 
-- `options` {object} Set of configurable options to set on the `FugleTrade`. Note that one and only one of the "configPath" or "config" options must be specified.
+- `options` {Object} Set of configurable options to set on the `FugleTrade`. Note that one and only one of the `configPath` or `config` options must be specified.
   - `configPath` {string} To load configuration file by path.
-  - `config` {object} Set configuration variables. Available properties are:
-    - `apiUrl` {string } The Fugle Trade API URL.
-    - `apiKey` {string } The Fugle Trade API key.
-    - `apiSecret` {string } The Fugle Trade API secret.
-    - `certPath` {string } The path of certificate.
+  - `config` {Object} Set configuration variables. Available properties are:
+    - `apiUrl` {string} The Fugle Trade API URL.
+    - `apiKey` {string} The Fugle Trade API key.
+    - `apiSecret` {string} The Fugle Trade API secret.
+    - `certPath` {string} The path of certificate.
     - `aid` {string} The account ID.
   - `certPass` {string} The certificate password.
 
@@ -55,14 +64,14 @@ Create a new `FugleTrade` instance.
 
 - `account` {string} The acount ID of the user.
 - `password` {string} The password of the user.
-- Returns: {Promise<void>}
+- Returns: {Promise} Fulfills with `undefined` upon success.
 
-Log in to Fugle to begin using trade services.
+Log in to the remote server to begin using services.
 
 ### `fugle.placeOrder(order)`
 
 - `order` {Order} The order to be placed.
-- Returns: {Promise<PlaceOrderResponse>}
+- Returns: {Promise} Fulfills with an {PlaceOrderResponse} upon success.
 
 Place an order for the logged account.
 
@@ -70,7 +79,7 @@ Place an order for the logged account.
 
 - `order` {OrderResult} The working order to be replaced.
 - `price` {number} The price of replace.
-- Returns: {Promise<ReplaceOrderResponse>}
+- Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Replace the order to change price for the logged account.
 
@@ -78,7 +87,7 @@ Replace the order to change price for the logged account.
 
 - `order` {OrderResult} The working order to be replaced.
 - `quantity` {number} The price of quantity.
-- Returns: {Promise<ReplaceOrderResponse>}
+- Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Replace the order to change quantity for the logged account.
 
@@ -88,63 +97,109 @@ Replace the order to change quantity for the logged account.
 - `options` {Object} Set of configurable options to replace the order.
   - `price` {number} The price of price.
   - `quantity` {number} The price of quantity.
-- Returns: {Promise<ReplaceOrderResponse>}
+- Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Replace the order for the logged account. Note that one and only one of the `price` or `quantity` options must be specified.
 
 ### `fugle.cancelOrder(order)`
 
 - `order` {OrderResult} The working order to be canceled.
-- Returns: {Promise<ReplaceOrderResponse>}
+- Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Cancel the order for the logged account.
 
 ### `fugle.getOrders()`
 
-- Returns: {Promise<OrderResult[]>}
+- Returns: {Promise} Fulfills with {OrderResult[]} upon success.
 
 Gets existing orders of the logged account.
 
 ### `fugle.getTransactions(range)`
 
 - `range` {string} Available range is `0d`, `3d`, `1m` or `3m`. 
-- Returns: {Promise<Trade[]>}
+- Returns: {Promise} Fulfills with {Trade[]} upon success.
 
 Gets transactions of the logged account.
 
 ### `fugle.getInventories()`
 
-- Returns: {Promise<Stock[]>}
+- Returns: {Promise} Fulfills with {Stock[]} upon success.
 
 Gets inventories of the logged account.
 
 ### `fugle.getSettlements()`
 
-- Returns: {Promise<Settlement[]>}
+- Returns: {Promise} Fulfills with {Settlement[]} upon success.
 
 Gets incoming settlements of the logged account.
 
 ### `fugle.getKeyInfo()`
 
-- Returns: {Promise<KeyInfo>}
+- Returns: {Promise} Fulfills with an {KeyInfo} upon success.
 
 Gets API key information of the logged account.
 
 ### `fugle.getMachineTime()`
 
-- Returns: {Promise<string>}
+- Returns: {Promise} Fulfills with {string} upon success.
 
 Gets machine time of the remote server. If the time difference between the local time and the remote machine is too large, the verification process will fail.
 
 ### `fugle.getCertInfo()`
 
-- Returns: {Promise<CertInfo>}
+- Returns: {Promise} Fulfills with {CertInfo} upon success.
 
 Gets the certificate information.
 
+### `fugle.streamer`
+
+- {Streamer}
+
+A class instance includes `EventEmitter` and `ws.WebSocket` to handle WebSocket connection.
+
+### Event: `'connect'`
+
+Emitted when the connection is established.
+
+### Event: `'disconnect'`
+
+Emitted when the connection is closed.
+
+### Event: `'order'`
+
+- `data` {string} The message content of the order confirmation. 
+
+Emitted when an order is confirmed.
+
+### Event: `'trade'`
+
+- `data` {string} The message content of the execution report.
+
+Emitted when an order is executed. The `data` is the message content of the execution report. 
+
+### Event: `'message'`
+
+- `data` {string} The message content. 
+
+Emitted when a message is received.
+
+### Event: `'error'`
+
+- `error` {Error}
+
+Emitted when an error occurs. 
+
+### `fugle.streamer.connect()`
+
+Establish a connection to the remote server.
+
+### `fugle.streamer.disconnect()`
+
+Disconnect from the remote server.
+
 ## Class: `Order`
 
-This class represents an Order to be placed.
+This class represents an order to be placed.
 
 ### Class property: `Order.Side`
 
@@ -203,7 +258,7 @@ This class represents an Order to be placed.
 
 ### Constructor: `new Order(payload)`
 
-- `payload` {object} Set payload of the order.
+- `payload` {Object} Set payload of the order.
   - `buySell` {Order.Side}
   - `price` {number}
   - `quantity` {number}
@@ -216,7 +271,7 @@ Create a new `Order` instance.
 
 ### `order.payload`
 
-- {object}
+- {Object}
   - `buySell` {Order.Side}
   - `price` {number}
   - `quantity` {number}

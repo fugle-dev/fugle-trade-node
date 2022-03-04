@@ -125,6 +125,8 @@ const order = new Order({
 await fugle.placeOrder(order);
 ```
 
+See [`/doc/fugle-trade.md`](./doc/fugle-trade.md#class-order) for details on available options.
+
 ### Replacing or canceling the order
 
 If you want to replace or cancel an order, you need to get your all existing orders first.

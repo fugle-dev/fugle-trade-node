@@ -88,11 +88,11 @@ describe('Order', () => {
     });
   });
 
-  describe('.setTrade()', () => {
+  describe('.setTradeType()', () => {
     it('should set trade of the payload', () => {
       const order = new Order();
       const trade = Order.Trade.Cash;
-      order.setTrade(trade);
+      order.setTradeType(trade);
       expect(order.payload.trade).toBe(trade);
     });
   });
@@ -107,7 +107,7 @@ describe('Order', () => {
         .setApCode(Order.ApCode.Common)
         .setPriceFlag(Order.PriceFlag.Limit)
         .setBsFlag(Order.BsFlag.ROD)
-        .setTrade(Order.Trade.Cash)
+        .setTradeType(Order.Trade.Cash)
 
       expect(order.payload).toEqual({
         buySell: Order.Side.Buy,

@@ -73,7 +73,7 @@ export class Streamer {
         [MessageKind.ACK]: () => this.emitter.emit(ORDER_EVENT, message),
         [MessageKind.MAT]: () => this.emitter.emit(TRADE_EVENT, message),
       };
-      if (handleMessage[kind]) handleMessage[kind]();
+      handleMessage[kind] && handleMessage[kind]();
     } catch (err) {
       return;
     }

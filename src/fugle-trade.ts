@@ -9,6 +9,15 @@ export class FugleTrade extends Client {
       ...(options.config || {} as ClientConfig),
       certPass: options.certPass || '',
     };
+
+    if (!options.configPath && !options.config) throw new TypeError('One of the "configPath" or "config" options must be specified');
+    if (!config.apiUrl) throw new TypeError('Invalid configuration: "config.apiUrl" is required');
+    if (!config.apiKey) throw new TypeError('Invalid configuration: "config.apiKey" is required');
+    if (!config.apiSecret) throw new TypeError('Invalid configuration: "config.apiSecret" is required');
+    if (!config.certPath) throw new TypeError('Invalid configuration: "config.certPath" is required');
+    if (!config.aid) throw new TypeError('Invalid configuration: "config.aid" is required');
+    if (!config.certPass) throw new TypeError('Invalid configuration: "certPass" is required');
+
     super(config);
   }
 }

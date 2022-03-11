@@ -12,7 +12,6 @@ import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.inte
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
 
-
 type Range = '0d' | '3d' | '1m' | '3m';
 
 const SDK = Symbol('Client#sdk');

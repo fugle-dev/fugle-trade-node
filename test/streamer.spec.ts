@@ -117,6 +117,16 @@ describe('Streamer', () => {
       expect(cb).toBeCalledWith(response);
     });
 
+    it('should occur error', async () => {
+      const cb = jest.fn();
+      const streamer = new Streamer(url);
+      streamer.once('error', cb);
+      streamer.connect();
+      await server.connected;
+      server.error();
+      expect(cb).toBeCalled();
+    });
+
     it('should emit the order event', async () => {
       const cb = jest.fn();
       const streamer = new Streamer(url);

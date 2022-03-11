@@ -55,8 +55,8 @@ export class Order {
     return this;
   }
 
-  setTrade(trade: TradeType): this {
-    this.payload.trade = trade;
+  setTradeType(tradeType: TradeType): this {
+    this.payload.trade = tradeType;
     return this;
   }
 

@@ -1,7 +1,7 @@
 {
   "name": "@fugle/trade",
-  "version": "0.0.0",
-  "description": "Fugle Trade API client library for Node.js",
+  "version": "0.1.0-alpha.0",
+  "description": "FugleTrade API SDK for Node.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

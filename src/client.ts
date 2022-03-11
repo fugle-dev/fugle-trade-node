@@ -1,6 +1,7 @@
 import { CoreSdk, OrderObject, OrderResultObject } from '@fugle/trade-core';
 import { Streamer } from './streamer';
 import { Order } from './order';
+import { PlacedOrder } from './placed-order';
 import { ClientConfig } from './interfaces/client-config.interface';
 import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interface';
 import { ParsedInventories, Stock } from './interfaces/parsed-inventories.interface';
@@ -47,7 +48,8 @@ export class Client {
   }
 
   // Must login first
-  async replacePrice(order: OrderResult, price: number): Promise<ReplaceOrderResponse> {
+  async replacePrice(placedOrder: PlacedOrder, price: number): Promise<ReplaceOrderResponse> {
+    const order = placedOrder.toObject();
     order.ordno = order.ordno ? order.ordno : order.preordno;
     const response = this.sdk.modifyPrice(order, price)
     const parsed = JSON.parse(response) as ParsedReplaceOrderResponse;
@@ -55,7 +57,8 @@ export class Client {
   }
 
   // Must login first
-  async replaceQuantity(order: OrderResult, quantity: number): Promise<ReplaceOrderResponse> {
+  async replaceQuantity(placedOrder: PlacedOrder, quantity: number): Promise<ReplaceOrderResponse> {
+    const order = placedOrder.toObject();
     order.ordno = order.ordno ? order.ordno : order.preordno;
     const response = this.sdk.modifyVolume(order, quantity);
     const parsed = JSON.parse(response) as ParsedReplaceOrderResponse;
@@ -63,26 +66,26 @@ export class Client {
   }
 
   // Must login first
-  async cancelOrder(order: OrderResult): Promise<ReplaceOrderResponse> {
-    return this.replaceQuantity(order, 0);
+  async cancelOrder(placedOrder: PlacedOrder): Promise<ReplaceOrderResponse> {
+    return this.replaceQuantity(placedOrder, 0);
   }
 
   // Must login first
-  async replaceOrder(order: OrderResult, options: { price?: number, quantity?: number }): Promise<ReplaceOrderResponse> {
+  async replaceOrder(placedOrder: PlacedOrder, options: { price?: number, quantity?: number }): Promise<ReplaceOrderResponse> {
     if (!!(options && options.price) !== !!(options && options.quantity)) {
       /* istanbul ignore else */
-      if (options.price) return this.replacePrice(order, options.price);
+      if (options.price) return this.replacePrice(placedOrder, options.price);
       /* istanbul ignore else */
-      if (options.quantity) return this.replaceQuantity(order, options.quantity);
+      if (options.quantity) return this.replaceQuantity(placedOrder, options.quantity);
     }
     throw new TypeError('One and only one of the "price" or "quantity" options must be specified');
   }
 
   // Must login first
-  async getOrders(): Promise<OrderResult[]> {
+  async getOrders(): Promise<PlacedOrder[]> {
     const response = this.sdk.getOrderResult();
     const parsed = JSON.parse(response) as ParsedOrderResult;
-    return parsed.data.orderResults;
+    return parsed.data.orderResults.map(order => new PlacedOrder(order));
   }
 
   // Must login first

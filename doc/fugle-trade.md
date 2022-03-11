@@ -336,7 +336,7 @@ Sets `bsFlag` value for the order payload.
 - `tradeType` {Order.TradeType}
 - Returns: {this}
 
-Sets `tradeType` value for the order payload.
+Sets `trade` value for the order payload.
 
 ### `order.toObject()`
 

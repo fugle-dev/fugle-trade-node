@@ -118,7 +118,7 @@ const order = new Order({
   apCode: Order.ApCode.Common,
   priceFlag: Order.PriceFlag.Limit,
   bsFlag: Order.BsFlag.ROD,
-  trade: Order.Trade.Cash,
+  trade: Order.TradeType.Cash,
 });
 
 // place the order

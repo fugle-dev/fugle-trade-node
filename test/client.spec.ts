@@ -1,9 +1,10 @@
 import { readFileSync } from 'fs';
 import { Client } from '../src/client';
-import { ClientConfig } from '../src/interfaces';
-import { Order } from '../src/order';
 import { Streamer } from '../src/streamer';
+import { Order } from '../src/order';
+import { PlacedOrder } from '../src/placed-order';
 import { readConfigFile } from '../src/utils';
+import { ClientConfig, OrderResult } from '../src/interfaces';
 
 jest.mock('@fugle/trade-core', () => {
   return {
@@ -167,7 +168,7 @@ describe('Client', () => {
       const response = await client.getOrders();
       const data = readFileSync('./test/fixtures/response-orders.txt').toString();
       const parsed = JSON.parse(data);
-      expect(response).toEqual(parsed.data.orderResults);
+      expect(response).toEqual(parsed.data.orderResults.map((order: OrderResult) => new PlacedOrder(order)));
     });
   });
 

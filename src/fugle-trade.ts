@@ -5,10 +5,10 @@ import { Client } from './client';
 export class FugleTrade extends Client {
   constructor(options: FugleTradeOptions = {}) {
     const config = {
-      ...(options.configPath ? readConfigFile(options.configPath) : {} as ClientConfig),
-      ...(options.config || {} as ClientConfig),
+      ...(options.configPath ? readConfigFile(options.configPath) : {}),
+      ...(options.config || {}),
       certPass: options.certPass || '',
-    };
+    } as ClientConfig;
 
     if (!options.configPath && !options.config) throw new TypeError('One of the "configPath" or "config" options must be specified');
     if (!config.apiUrl) throw new TypeError('Invalid configuration: "config.apiUrl" is required');

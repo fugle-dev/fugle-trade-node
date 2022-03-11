@@ -7,6 +7,7 @@ export class PlacedOrder {
   private [PAYLOAD]: PlacedOrderPayload;
 
   constructor(payload: any) {
+    /* istanbul ignore next */
     this[PAYLOAD] = {
       ...payload,
       ...(payload.apcode && { apcode: String(payload.apcode) as ApCode }),

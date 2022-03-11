@@ -3,6 +3,6 @@ export interface ClientConfig {
   apiKey: string;
   apiSecret: string;
   certPath: string;
-  certPass?: string;
+  certPass: string;
   aid: string;
 }

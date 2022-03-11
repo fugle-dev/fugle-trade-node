@@ -30,7 +30,7 @@
   - [Class property: Order.ApCode](#class-property-orderapcode)
   - [Class property: Order.PriceFlag](#class-property-orderpriceflag)
   - [Class property: Order.BsFlag](#class-property-orderbsflag)
-  - [Class property: Order.Trade](#class-property-ordertrade)
+  - [Class property: Order.TradeType](#class-property-ordertradetype)
   - [Constructor new Order(payload)](#constructor-new-orderpayload)
   - [order.setSymbol(symbol)](#ordersetsymbolsymbol)
   - [order.setSide(side)](#ordersetsideside)
@@ -51,9 +51,9 @@ This class represents a client that uses remote services from the server.
 - `options` {Object} Set of configurable options to set on the `FugleTrade`. Note that one and only one of the `configPath` or `config` options must be specified.
   - `configPath` {string} To load configuration file by path.
   - `config` {Object} Set configuration variables. Available properties are:
-    - `apiUrl` {string} The Fugle Trade API URL.
-    - `apiKey` {string} The Fugle Trade API key.
-    - `apiSecret` {string} The Fugle Trade API secret.
+    - `apiUrl` {string} FugleTrade API URL.
+    - `apiKey` {string} FugleTrade API key.
+    - `apiSecret` {string} FugleTrade API secret.
     - `certPath` {string} The path of certificate.
     - `aid` {string} The account ID.
   - `certPass` {string} The certificate password.
@@ -244,7 +244,7 @@ This class represents an order to be placed.
 | `IOC` | `'I'` | Immediate or cancel |
 | `FOK` | `'F'` | Fill or kill        |
 
-### Class property: `Order.Trade`
+### Class property: `Order.TradeType`
 
 - {enum}
 
@@ -265,7 +265,7 @@ This class represents an order to be placed.
   - `apCode` {Order.ApCode}
   - `priceFlag` {Order.PriceFlag}
   - `bsFlag` {Order.BsFlag}
-  - `trade` {Order.Trade}
+  - `trade` {Order.TradeType}
 
 Create a new `Order` instance.
 
@@ -278,7 +278,7 @@ Create a new `Order` instance.
   - `apCode` {Order.ApCode}
   - `priceFlag` {Order.PriceFlag}
   - `bsFlag` {Order.BsFlag}
-  - `trade` {Order.Trade}
+  - `trade` {Order.TradeType}
 
 The payload of the order.
 
@@ -331,12 +331,12 @@ Sets `priceFlag` value for the order payload.
 
 Sets `bsFlag` value for the order payload.
 
-### `order.setTrade(trade)`
+### `order.setTradeType(tradeType)`
 
-- `trade` {Order.Trade}
+- `tradeType` {Order.TradeType}
 - Returns: {this}
 
-Sets `trade` value for the order payload.
+Sets `tradeType` value for the order payload.
 
 ### `order.toObject()`
 

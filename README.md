@@ -4,7 +4,7 @@
 [![Build Status][action-image]][action-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
-> Fugle Trade SDK for Node.js
+> FugleTrade API SDK for Node.js
 
 ## Installation
 
@@ -36,7 +36,7 @@ fugle.login('YOUR_ACCOUNT', 'YOUR_PASSWORD').then(() => {
       apCode: Order.ApCode.Common,
       priceFlag: Order.PriceFlag.Limit,
       bsFlag: Order.BsFlag.ROD,
-      trade: Order.Trade.Cash,
+      trade: Order.TradeType.Cash,
     });
 
     // place order

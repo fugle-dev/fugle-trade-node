@@ -22,7 +22,7 @@ export class Client {
   private [STREAMER]: Streamer;
 
   constructor(config: ClientConfig) {
-    const { apiUrl, apiKey, apiSecret, certPath, certPass = '', aid } = config;
+    const { apiUrl, apiKey, apiSecret, certPath, certPass, aid } = config;
     this[SDK] = new CoreSdk(apiUrl, '', apiKey, apiSecret, '', certPath, certPass, aid);
   }
 
@@ -69,8 +69,10 @@ export class Client {
 
   // Must login first
   async replaceOrder(order: OrderResult, options: { price?: number, quantity?: number }): Promise<ReplaceOrderResponse> {
-    if (!!options?.price !== !!options?.quantity) {
+    if (!!(options && options.price) !== !!(options && options.quantity)) {
+      /* istanbul ignore else */
       if (options.price) return this.replacePrice(order, options.price);
+      /* istanbul ignore else */
       if (options.quantity) return this.replaceQuantity(order, options.quantity);
     }
     throw new TypeError('One and only one of the "price" or "quantity" options must be specified');

@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import { Client } from '../src/client';
+import { ClientConfig } from '../src/interfaces';
 import { Order } from '../src/order';
 import { Streamer } from '../src/streamer';
 import { readConfigFile } from '../src/utils';
@@ -29,7 +30,7 @@ describe('Client', () => {
   const config = {
     ...readConfigFile('./test/fixtures/config.ini'),
     certPass: 'password',
-  };
+  } as ClientConfig;
 
   describe('.streamer', () => {
     it('should get instance of streamer', async () => {

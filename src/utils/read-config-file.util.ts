@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as ini from 'ini';
 import { ClientConfig } from '../interfaces';
 
-export function readConfigFile(path: string): ClientConfig {
+export function readConfigFile(path: string): Partial<ClientConfig> {
   const config = ini.parse(fs.readFileSync(path, 'utf-8'));
 
   return {

@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [14.x, 16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -28,5 +28,5 @@ jobs:
     - name: Run tests
       run: npm run test:cov
 
-    - name: Upload coverage to Codecov
-      run: npm run coverage
+    # - name: Upload coverage to Codecov
+      # run: npm run coverage

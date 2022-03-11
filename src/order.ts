@@ -1,5 +1,5 @@
 import { OrderObject } from '@fugle/trade-core';
-import { Side, ApCode, PriceFlag, BsFlag, Trade } from './enums';
+import { Side, ApCode, PriceFlag, BsFlag, TradeType } from './enums';
 import { OrderPayload } from './interfaces';
 
 const PAYLOAD = Symbol('Order#payload');
@@ -9,7 +9,7 @@ export class Order {
   public static ApCode = ApCode;
   public static PriceFlag = PriceFlag;
   public static BsFlag = BsFlag;
-  public static Trade = Trade;
+  public static Trade = TradeType;
   private [PAYLOAD]: OrderPayload;
 
   constructor(payload?: OrderPayload) {
@@ -55,7 +55,7 @@ export class Order {
     return this;
   }
 
-  setTrade(trade: Trade): this {
+  setTrade(trade: TradeType): this {
     this.payload.trade = trade;
     return this;
   }

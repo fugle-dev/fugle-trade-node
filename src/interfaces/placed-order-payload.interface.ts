@@ -1,4 +1,4 @@
-import { Side, ApCode, PriceFlag, BsFlag, Trade } from '../enums';
+import { Side, ApCode, PriceFlag, BsFlag, TradeType } from '../enums';
 
 export interface PlacedOrderPayload {
   apcode?: ApCode;
@@ -22,6 +22,6 @@ export interface PlacedOrderPayload {
   preordno?: string;
   priceflag?: PriceFlag;
   stockno?: string;
-  trade?: Trade;
+  trade?: TradeType;
   workdate?: string;
 }

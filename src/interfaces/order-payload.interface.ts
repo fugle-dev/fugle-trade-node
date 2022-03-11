@@ -1,4 +1,4 @@
-import { Side, ApCode, PriceFlag, BsFlag, Trade } from '../enums';
+import { Side, ApCode, PriceFlag, BsFlag, TradeType } from '../enums';
 
 export interface OrderPayload {
   stockNo?: string;
@@ -8,5 +8,5 @@ export interface OrderPayload {
   apCode?: ApCode;
   priceFlag?: PriceFlag;
   bsFlag?: BsFlag;
-  trade?: Trade;
+  trade?: TradeType;
 }

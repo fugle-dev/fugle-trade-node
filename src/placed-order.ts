@@ -1,4 +1,4 @@
-import { Side, ApCode, PriceFlag, BsFlag, Trade } from './enums';
+import { Side, ApCode, PriceFlag, BsFlag, TradeType } from './enums';
 import { PlacedOrderPayload, OrderResult } from './interfaces';
 
 const PAYLOAD = Symbol('PlacedOrder#payload');
@@ -31,7 +31,7 @@ export class PlacedOrder {
       ...(payload.preordno && { preordno: String(payload.preordno) }),
       ...(payload.priceflag && { priceflag: String(payload.priceflag) as PriceFlag }),
       ...(payload.stockno && { stockno: String(payload.stockno) }),
-      ...(payload.trade && { trade: String(payload.trade) as Trade }),
+      ...(payload.trade && { trade: String(payload.trade) as TradeType }),
       ...(payload.workdate && { workdate: String(payload.workdate) }),
     };
   }

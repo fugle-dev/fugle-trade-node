@@ -2,6 +2,32 @@
   "data": {
     "orderResults": [
       {
+        "market": "T",
+        "workdate": "20220314",
+        "orddate": "20220311",
+        "ordtime": "161323716",
+        "syscode": "FA",
+        "ordstatus": "1",
+        "ordno": "",
+        "preordno": "P0D832B7",
+        "stockno": "2884",
+        "buysell": "B",
+        "apcode": "1",
+        "priceflag": "0",
+        "trade": "0",
+        "odprice": "25.0",
+        "orgqty": "1",
+        "matqty": "0",
+        "celqty": "0",
+        "celable": "1",
+        "errcode": "00000000",
+        "errmsg": "",
+        "avgPrice": "0",
+        "chgtime": "161323716",
+        "chgdate": "20220311",
+        "bsFlag": "R"
+      },
+      {
         "workdate": "20220222",
         "orddate": "20220222",
         "ordtime": "130000000",

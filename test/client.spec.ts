@@ -73,8 +73,18 @@ describe('Client', () => {
     it('should replace order to change price', async () => {
       const client = new Client(config);
       await client.login('account', 'password');
-      const [ order ] = await client.getOrders();
+      const [ preorder, order ] = await client.getOrders();
       const response = await client.replacePrice(order, 140);
+      const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
+      const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed.data);
+    });
+
+    it('should replace preorder to change price', async () => {
+      const client = new Client(config);
+      await client.login('account', 'password');
+      const [ preorder, order ] = await client.getOrders();
+      const response = await client.replacePrice(preorder, 140);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
       expect(response).toEqual(parsed.data);
@@ -85,8 +95,18 @@ describe('Client', () => {
     it('should replace order to change quantity', async () => {
       const client = new Client(config);
       await client.login('account', 'password');
-      const [ order ] = await client.getOrders();
+      const [ preorder, order ] = await client.getOrders();
       const response = await client.replaceQuantity(order, 1);
+      const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
+      const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed.data);
+    });
+
+    it('should replace preorder to change quantity', async () => {
+      const client = new Client(config);
+      await client.login('account', 'password');
+      const [ preorder, order ] = await client.getOrders();
+      const response = await client.replaceQuantity(preorder, 1);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
       expect(response).toEqual(parsed.data);

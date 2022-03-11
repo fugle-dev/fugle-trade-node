@@ -27,7 +27,6 @@ describe('FugleTrade', () => {
     it('should throw error when missing config.apiUrl', async () => {
       expect(() => {
         new FugleTrade({
-          // @ts-expect-error
           config: {
             apiKey: 'XXXXXXXXXXXXXXXX',
             apiSecret: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -48,7 +47,6 @@ describe('FugleTrade', () => {
     it('should throw error when missing config.apiKey', async () => {
       expect(() => {
         new FugleTrade({
-          // @ts-expect-error
           config: {
             apiUrl: 'http://localhost:3000/api/v1',
             apiSecret: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -63,7 +61,6 @@ describe('FugleTrade', () => {
     it('should throw error when missing config.apiSecret', async () => {
       expect(() => {
         new FugleTrade({
-          // @ts-expect-error
           config: {
             apiUrl: 'http://localhost:3000/api/v1',
             apiKey: 'XXXXXXXXXXXXXXXX',
@@ -78,7 +75,6 @@ describe('FugleTrade', () => {
     it('should throw error when missing config.certPath', async () => {
       expect(() => {
         new FugleTrade({
-          // @ts-expect-error
           config: {
             apiUrl: 'http://localhost:3000/api/v1',
             apiKey: 'XXXXXXXXXXXXXXXX',
@@ -93,7 +89,6 @@ describe('FugleTrade', () => {
     it('should throw error when missing config.aid', async () => {
       expect(() => {
         new FugleTrade({
-          // @ts-expect-error
           config: {
             apiUrl: 'http://localhost:3000/api/v1',
             apiKey: 'XXXXXXXXXXXXXXXX',

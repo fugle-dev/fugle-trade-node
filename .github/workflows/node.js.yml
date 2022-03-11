@@ -28,5 +28,5 @@ jobs:
     - name: Run tests
       run: npm run test:cov
 
-    # - name: Upload coverage to Codecov
-      # run: npm run coverage
+    - name: Upload coverage to Codecov
+      run: npm run coverage

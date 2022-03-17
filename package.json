@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/fugle-dev/fugle-trade-node#readme",
   "dependencies": {
-    "@fugle/trade-core": "^0.0.1",
+    "@fugle/trade-core": "^0.1.1",
     "ini": "^2.0.0",
     "ws": "^8.5.0"
   },

@@ -83,7 +83,7 @@ export class Client {
 
   // Must login first
   async getOrders(): Promise<PlacedOrder[]> {
-    const response = this.sdk.getOrderResult();
+    const response = this.sdk.getOrderResults();
     const parsed = JSON.parse(response) as ParsedOrderResult;
     return parsed.data.orderResults.map(order => new PlacedOrder(order));
   }

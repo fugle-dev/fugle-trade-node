@@ -1,27 +1,26 @@
 import { Side, ApCode, PriceFlag, BsFlag, TradeType } from '../enums';
 
 export interface PlacedOrderPayload {
-  apcode?: ApCode;
+  apCode?: ApCode;
   avgPrice?: number;
   bsFlag?: BsFlag;
-  buysell?: Side;
+  buySell?: Side;
   celable?: string;
-  celqty?: number;
-  celqty_share?: number;
-  chgdate?: string;
-  errcode?: string;
-  errmsg?: string;
-  matqty?: number;
-  matqty_share?: number;
-  odprice?: number;
-  orddate?: string;
-  ordno?: string;
-  ordstatus?: string;
-  orgqty?: number;
-  orgqty_share?: number;
-  preordno?: string;
-  priceflag?: PriceFlag;
-  stockno?: string;
+  celQty?: number;
+  celQtyShare?: number;
+  errCode?: string;
+  errMsg?: string;
+  matQty?: number;
+  matqtyShare?: number;
+  odPrice?: number;
+  orDdate?: string;
+  ordNo?: string;
+  ordStatus?: string;
+  orgQty?: number;
+  orgQtyShare?: number;
+  preOrdNo?: string;
+  priceFlag?: PriceFlag;
+  stockNo?: string;
   trade?: TradeType;
-  workdate?: string;
+  workDate?: string;
 }

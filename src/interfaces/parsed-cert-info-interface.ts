@@ -1,7 +1,7 @@
 export interface ParsedCertInfo {
   cn: string;
-  is_valid: boolean;
-  not_after: number;
+  isValid: boolean;
+  notAfter: number;
   serial: string;
 }
 

@@ -1,58 +1,56 @@
-export interface StockDate {
-  tDate: string;
-  ttime: string;
-  trade: string;
-  bs: string;
-  ordno: string;
-  price: string;
-  price603: string;
-  qty: string;
-  qtyr: string;
-  qtyh: string;
-  qtyc: string;
+export interface StockDat {
+  buySell: string;
+  costR: string;
   fee: string;
-  tax: string;
-  taxg: string;
-  payn: string;
-  costr: string;
-  valueMkt: string;
-  valueNow: string;
   makeA: string;
   makeAPer: string;
+  ordNo: string;
+  payN: string;
+  price: string;
+  price603: string;
   priceEvn: string;
+  qty: string;
+  qtyC: string;
+  qtyH: string;
+  qtyR: string;
+  tDate: string;
+  tax: string;
+  taxG: string;
+  trade: string;
+  tTime: string;
+  valueMkt: string;
+  valueNow: string;
 }
 
 export interface Stock {
-  stkdats: StockDate[];
-  stkNo: string;
-  stkNa: string;
-  bhNo: string;
-  cSeq: string;
-  apcode: string;
-  trade: string;
-  stype: string;
-  qtyL: string;
-  qtyB: string;
-  qtyS: string;
-  qtyC: string;
-  qtyBm: string;
-  qtySm: string;
+  apCode: string;
   costQty: string;
   costSum: string;
-  priceQtySum: string;
-  priceAvg: string;
-  valueMkt: string;
-  valueNow: string;
-  recVaSum: string;
-  makeASum: string;
   makeAPer: string;
+  makeASum: string;
+  priceAvg: string;
   priceEvn: string;
   priceMkt: string;
   priceNow: string;
+  priceQtySum: string;
+  qtyB: string;
+  qtyBm: string;
+  qtyC: string;
+  qtyL: string;
+  qtyS: string;
+  qtySm: string;
+  recVaSum: string;
+  stkNa: string;
+  stkNo: string;
+  sType: string;
+  trade: string;
+  valueMkt: string;
+  valueNow: string;
+  stkDats: StockDat[];
 }
 
 export interface ParsedInventories {
   data: {
-    stksums: Stock[];
+    stkSums: Stock[];
   }
 }

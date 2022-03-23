@@ -1,48 +1,45 @@
 export interface TradeDate {
-  tDate: string;
-  stkNo: string;
-  stkNa: string;
-  branchNo: string;
-  trade: string;
-  sType: string;
-  bs: string;
-  orderNo: string;
-  price: string;
-  qty: string;
-  priceQty: string;
-  fee: string;
-  tax: string;
-  taxg: string;
+  buySell: string;
+  cDate: string;
   dbFee: string;
-  pays: string;
-  payn: string;
+  fee: string;
   make: string;
   makePer: string;
-  cDate: string;
+  orderNo: string;
+  payN: string;
+  price: string;
+  priceQty: string;
+  qty: string;
+  sType: string;
+  stkNa: string;
+  stkNo: string;
+  tDate: string;
+  tTime: string;
+  tax: string;
+  taxG: string;
+  trade: string;
 }
 
 export interface Trade {
-  matdats: TradeDate[],
-  tDate: string;
-  stkNo: string;
-  stkNa: string;
-  bhNo: string;
-  cSeq: string;
-  trade: string;
-  stype: string;
-  bs: string;
-  qty: string;
-  priceQty: string;
-  priceAvg: string;
+  buySell: string;
+  cDate: string;
   cost: string;
-  recv: string;
   make: string;
   makePer: string;
-  cDate: string;
+  priceAvg: string;
+  priceQty: string;
+  qty: string;
+  recv: string;
+  stkNa: string;
+  stkNo: string;
+  sType: string;
+  tDate: string;
+  trade: string;
+  matDats: TradeDate[],
 }
 
 export interface ParsedTransactions {
   data: {
-    matsums: Trade[];
+    matSums: Trade[];
   };
 }

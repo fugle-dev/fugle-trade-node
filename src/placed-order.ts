@@ -25,7 +25,7 @@ export class PlacedOrder {
       ...(payload.ordDate && { ordDate: String(payload.ordDate) }),
       ...(payload.ordNo && { ordNo: String(payload.ordNo) }),
       ...(payload.ordStatus && { ordStatus: String(payload.ordStatus) }),
-      ...(payload.orgQty && { orgqty: Number(payload.orgQty) }),
+      ...(payload.orgQty && { orgQty: Number(payload.orgQty) }),
       //...(payload.orgqty_share && { orgqty_share: Number(payload.orgqty_share) }),
       ...(payload.preOrdNo && { preOrdNo: String(payload.preOrdNo) }),
       ...(payload.priceFlag && { priceFlag: String(payload.priceFlag) as PriceFlag }),

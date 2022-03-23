@@ -1,12 +1,12 @@
 export interface KeyInfo {
   apiKey: string;
-  scope: string;
   apiKeyName: string;
   apiKeyMemo: string;
   createdAt: {
     seconds: number;
     nanos: number;
   },
+  scope: string;
   status: number;
 }
 

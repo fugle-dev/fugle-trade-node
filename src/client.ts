@@ -50,7 +50,6 @@ export class Client {
   // Must login first
   async replacePrice(placedOrder: PlacedOrder, price: number): Promise<ReplaceOrderResponse> {
     const order = placedOrder.toObject();
-    order.ordno = order.ordno ? order.ordno : order.preordno;
     const response = this.sdk.modifyPrice(order, price)
     const parsed = JSON.parse(response) as ParsedReplaceOrderResponse;
     return parsed.data;
@@ -59,7 +58,6 @@ export class Client {
   // Must login first
   async replaceQuantity(placedOrder: PlacedOrder, quantity: number): Promise<ReplaceOrderResponse> {
     const order = placedOrder.toObject();
-    order.ordno = order.ordno ? order.ordno : order.preordno;
     const response = this.sdk.modifyVolume(order, quantity);
     const parsed = JSON.parse(response) as ParsedReplaceOrderResponse;
     return parsed.data;
@@ -92,14 +90,14 @@ export class Client {
   async getTransactions(range: Range): Promise<Trade[]> {
     const response = this.sdk.getTransactions(range);
     const parsed = JSON.parse(response) as ParsedTransactions;
-    return parsed.data.matsums;
+    return parsed.data.matSums;
   }
 
   // Must login first
   async getInventories(): Promise<Stock[]> {
     const response = this.sdk.getInventories();
     const parsed = JSON.parse(response) as ParsedInventories;
-    return parsed.data.stksums;
+    return parsed.data.stkSums;
   }
 
   // Must login first

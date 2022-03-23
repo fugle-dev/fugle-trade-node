@@ -1,7 +1,7 @@
 {
   "data": {
-    "retcode": "000000",
-    "retmsg": "",
+    "retCode": "000000",
+    "retMsg": "",
     "ordDate": "20220222",
     "ordTime": "120000000"
   }

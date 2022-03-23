@@ -1,9 +1,9 @@
 export interface PlaceOrderResponse {
-  retcode: string;
-  retmsg: string;
+  retCode: string;
+  retMsg: string;
   workDate: string;
   ordType: string;
-  ordno: string;
+  ordNo: string;
   ordDate: string;
   ordTime: string;
 }

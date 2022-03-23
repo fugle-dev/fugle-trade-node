@@ -179,7 +179,7 @@ describe('Client', () => {
       const response = await client.getTransactions('3d');
       const data = readFileSync('./test/fixtures/response-transactions.txt').toString();
       const parsed = JSON.parse(data);
-      expect(response).toEqual(parsed.data.matsums);
+      expect(response).toEqual(parsed.data.matSums);
     });
   });
 
@@ -190,7 +190,7 @@ describe('Client', () => {
       const response = await client.getInventories();
       const data = readFileSync('./test/fixtures/response-inventories.txt').toString();
       const parsed = JSON.parse(data);
-      expect(response).toEqual(parsed.data.stksums);
+      expect(response).toEqual(parsed.data.stkSums);
     });
   });
 

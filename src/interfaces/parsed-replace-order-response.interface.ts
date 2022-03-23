@@ -1,6 +1,6 @@
 export interface ReplaceOrderResponse {
-  retcode: string;
-  retmsg: string;
+  retCode: string;
+  retMsg: string;
   ordDate: string;
   ordTime: string;
 }

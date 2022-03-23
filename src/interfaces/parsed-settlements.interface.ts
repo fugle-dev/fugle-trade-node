@@ -1,6 +1,6 @@
 export interface Settlement {
   date: string;
-  cdate: string;
+  cDate: string;
   price: string;
 }
 

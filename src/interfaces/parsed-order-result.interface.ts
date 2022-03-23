@@ -1,26 +1,23 @@
 export interface OrderResult {
-  workdate: string;
-  orddate: string;
-  ordtime: string;
-  syscode: string;
-  ordstatus: string;
-  ordno: string;
-  preordno: string;
-  stockno: string;
-  buysell: string;
-  apcode: string;
-  priceflag: string;
+  workDate: string;
+  ordDate: string;
+  ordTime: string;
+  ordStatus: string;
+  ordNo: string;
+  preOrdNo: string;
+  stockNo: string;
+  buySell: string;
+  apCode: string;
+  priceFlag: string;
   trade: string;
-  odprice: string;
-  orgqty: string;
-  matqty: string;
-  celqty: string;
+  odPrice: string;
+  orgQty: string;
+  matQty: string;
+  celQty: string;
   celable: string;
-  errcode: string;
-  errmsg: string;
+  errCode: string;
+  errMsg: string;
   avgPrice: string;
-  chgtime: string;
-  chgdate: string;
   bsFlag: string;
 }
 

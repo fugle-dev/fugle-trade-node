@@ -5,4 +5,5 @@ export interface ClientConfig {
   certPath: string;
   certPass: string;
   aid: string;
+  password: string;
 }

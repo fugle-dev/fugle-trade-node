@@ -1,4 +1,4 @@
-import { CoreSdk, OrderObject, OrderResultObject } from '@fugle/trade-core';
+import { CoreSdk } from '@fugle/trade-core';
 import { Streamer } from './streamer';
 import { Order } from './order';
 import { PlacedOrder } from './placed-order';
@@ -7,11 +7,12 @@ import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interfac
 import { ParsedInventories, Stock } from './interfaces/parsed-inventories.interface';
 import { ParsedKeyInfo, KeyInfo } from './interfaces/parsed-key-info-interface';
 import { ParsedMachineTime } from './interfaces/parsed-machine-time.interface';
-import { ParsedOrderResult, OrderResult } from './interfaces/parsed-order-result.interface';
+import { ParsedOrderResult } from './interfaces/parsed-order-result.interface';
 import { ParsedSettlements, Settlement } from './interfaces/parsed-settlements.interface';
 import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.interface';
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
+import { loadCredentials } from './utils/load-credentials.util';
 
 type Range = '0d' | '3d' | '1m' | '3m';
 
@@ -22,9 +23,11 @@ export class Client {
   private [SDK]: CoreSdk;
   private [STREAMER]: Streamer;
 
-  constructor(config: ClientConfig) {
-    const { apiUrl, apiKey, apiSecret, certPath, certPass, aid } = config;
-    this[SDK] = new CoreSdk(apiUrl, '', apiKey, apiSecret, '', certPath, certPass, aid);
+  constructor(private readonly config: ClientConfig) {
+    const { apiUrl, apiKey, apiSecret, certPath, certPass, aid, password } = config;
+    if (certPass && password) {
+      this[SDK] = new CoreSdk(apiUrl, '', apiKey, apiSecret, '', certPath, certPass, aid);
+    }
   }
 
   get sdk(): CoreSdk {
@@ -35,8 +38,14 @@ export class Client {
     return this[STREAMER];
   }
 
-  async login(account: string, password: string): Promise<void> {
-    this.sdk.login(account, password);
+  async login(): Promise<void> {
+    if (!this.sdk) {
+      const { password, certPass } = await loadCredentials(this.config.aid);
+      const { apiUrl, apiKey, apiSecret, certPath, aid } = this.config;
+      this[SDK] = new CoreSdk(apiUrl, '', apiKey, apiSecret, '', certPath, certPass, aid);
+      this.config.password = password;
+    }
+    this.sdk.login(this.config.aid, this.config.password);
     this[STREAMER] = new Streamer(this.sdk.getWsUrl());
   }
 

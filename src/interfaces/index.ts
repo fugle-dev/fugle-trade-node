@@ -1,4 +1,5 @@
 export * from './fugle-trade-options.interface';
+export * from './credentials.interface';
 export * from './client-config.interface';
 export * from './order-payload.interface';
 export * from './placed-order-payload.interface';

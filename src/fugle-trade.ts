@@ -7,7 +7,6 @@ export class FugleTrade extends Client {
     const config = {
       ...(options.configPath ? readConfigFile(options.configPath) : {}),
       ...(options.config || {}),
-      certPass: options.certPass || '',
     } as ClientConfig;
 
     if (!options.configPath && !options.config) throw new TypeError('One of the "configPath" or "config" options must be specified');
@@ -16,7 +15,6 @@ export class FugleTrade extends Client {
     if (!config.apiSecret) throw new TypeError('Invalid configuration: "config.apiSecret" is required');
     if (!config.certPath) throw new TypeError('Invalid configuration: "config.certPath" is required');
     if (!config.aid) throw new TypeError('Invalid configuration: "config.aid" is required');
-    if (!config.certPass) throw new TypeError('Invalid configuration: "certPass" is required');
 
     super(config);
   }

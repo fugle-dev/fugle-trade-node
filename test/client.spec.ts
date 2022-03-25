@@ -27,6 +27,19 @@ jest.mock('@fugle/trade-core', () => {
   };
 });
 
+jest.mock('keytar', () => {
+  return {
+    getPassword: () => Promise.resolve(null),
+    setPassword: () => Promise.resolve(),
+  };
+});
+
+jest.mock('inquirer', () => {
+  return {
+    prompt: () => Promise.resolve({ password: 'password', certPass: 'certPass' }),
+  };
+});
+
 describe('Client', () => {
   const config = {
     ...readConfigFile('./test/fixtures/config.ini'),
@@ -36,7 +49,7 @@ describe('Client', () => {
   describe('.streamer', () => {
     it('should get instance of streamer', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       expect(client.streamer).toBeInstanceOf(Streamer);
     });
   });
@@ -44,15 +57,15 @@ describe('Client', () => {
   describe('.login()', () => {
     it('should invoke sdk.login()', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
-      expect(client.sdk.login).toBeCalledWith('account', 'password');
+      await client.login();
+      expect(client.sdk.login).toBeCalled();
     });
   });
 
   describe('.placeOrder()', () => {
     it('should place order', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const order = new Order({
         buySell: Order.Side.Buy,
         price: 25.00,
@@ -73,7 +86,7 @@ describe('Client', () => {
   describe('.replacePrice()', () => {
     it('should replace order to change price', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const [ preorder, order ] = await client.getOrders();
       const response = await client.replacePrice(order, 140);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
@@ -83,7 +96,7 @@ describe('Client', () => {
 
     it('should replace preorder to change price', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const [ preorder, order ] = await client.getOrders();
       const response = await client.replacePrice(preorder, 140);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
@@ -95,7 +108,7 @@ describe('Client', () => {
   describe('.replaceQuantity()', () => {
     it('should replace order to change quantity', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const [ preorder, order ] = await client.getOrders();
       const response = await client.replaceQuantity(order, 1);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
@@ -105,7 +118,7 @@ describe('Client', () => {
 
     it('should replace preorder to change quantity', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const [ preorder, order ] = await client.getOrders();
       const response = await client.replaceQuantity(preorder, 1);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
@@ -118,7 +131,7 @@ describe('Client', () => {
     it('should cancel order', async () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
-      await client.login('account', 'password');
+      await client.login();
       const [ order ] = await client.getOrders();
       await client.cancelOrder(order);
       expect(client.replaceQuantity).toBeCalledWith(order, 0);
@@ -129,7 +142,7 @@ describe('Client', () => {
     it('should replace order to change price', async () => {
       const client = new Client(config);
       client.replacePrice = jest.fn();
-      await client.login('account', 'password');
+      await client.login();
       const [ order ] = await client.getOrders();
       await client.replaceOrder(order, { price: 140 });
       expect(client.replacePrice).toBeCalledWith(order, 140);
@@ -138,7 +151,7 @@ describe('Client', () => {
     it('should replace order to change quantity', async () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
-      await client.login('account', 'password');
+      await client.login();
       const [ order ] = await client.getOrders();
       await client.replaceOrder(order, { quantity: 1 });
       expect(client.replaceQuantity).toBeCalledWith(order, 1);
@@ -147,7 +160,7 @@ describe('Client', () => {
     it('should throw an error when price and quantity are not specified', async () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
-      await client.login('account', 'password');
+      await client.login();
       const [ order ] = await client.getOrders();
       await expect(client.replaceOrder(order, {})).rejects.toThrow(TypeError);
     });
@@ -155,7 +168,7 @@ describe('Client', () => {
     it('should throw error when both price and quantity are specified', async () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
-      await client.login('account', 'password');
+      await client.login();
       const [ order ] = await client.getOrders();
       await expect(client.replaceOrder(order, { price: 140, quantity: 1 })).rejects.toThrow(TypeError);
     });
@@ -164,7 +177,7 @@ describe('Client', () => {
   describe('.getOrders()', () => {
     it('should get parsed order results', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const response = await client.getOrders();
       const data = readFileSync('./test/fixtures/response-orders.txt').toString();
       const parsed = JSON.parse(data);
@@ -175,7 +188,7 @@ describe('Client', () => {
   describe('.getTransactions()', () => {
     it('should get parsed transactions', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const response = await client.getTransactions('3d');
       const data = readFileSync('./test/fixtures/response-transactions.txt').toString();
       const parsed = JSON.parse(data);
@@ -186,7 +199,7 @@ describe('Client', () => {
   describe('.getInventories()', () => {
     it('should get parsed inventories', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const response = await client.getInventories();
       const data = readFileSync('./test/fixtures/response-inventories.txt').toString();
       const parsed = JSON.parse(data);
@@ -197,7 +210,7 @@ describe('Client', () => {
   describe('.getSettlements()', () => {
     it('should get parsed settlements', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const response = await client.getSettlements();
       const data = readFileSync('./test/fixtures/response-settlements.txt').toString();
       const parsed = JSON.parse(data);
@@ -208,7 +221,7 @@ describe('Client', () => {
   describe('.getKeyInfo()', () => {
     it('should get parsed api key info', async () => {
       const client = new Client(config);
-      await client.login('account', 'password');
+      await client.login();
       const response = await client.getKeyInfo();
       const data = readFileSync('./test/fixtures/response-key-info.txt').toString();
       const parsed = JSON.parse(data);

@@ -2,6 +2,7 @@ import { CoreSdk } from '@fugle/trade-core';
 import { Streamer } from './streamer';
 import { Order } from './order';
 import { PlacedOrder } from './placed-order';
+import { loadCredentials, removeCredentials } from './utils';
 import { ClientConfig } from './interfaces/client-config.interface';
 import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interface';
 import { ParsedInventories, Stock } from './interfaces/parsed-inventories.interface';
@@ -12,7 +13,6 @@ import { ParsedSettlements, Settlement } from './interfaces/parsed-settlements.i
 import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.interface';
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
-import { loadCredentials } from './utils/load-credentials.util';
 
 type Range = '0d' | '3d' | '1m' | '3m';
 
@@ -47,6 +47,10 @@ export class Client {
     }
     this.sdk.login(this.config.aid, this.config.password);
     this[STREAMER] = new Streamer(this.sdk.getWsUrl());
+  }
+
+  async logout(): Promise<void> {
+    await removeCredentials(this.config.aid);
   }
 
   // Must login first

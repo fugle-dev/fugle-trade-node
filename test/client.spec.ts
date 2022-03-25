@@ -31,6 +31,7 @@ jest.mock('keytar', () => {
   return {
     getPassword: () => Promise.resolve(null),
     setPassword: () => Promise.resolve(),
+    deletePassword: () => Promise.resolve(true),
   };
 });
 
@@ -57,8 +58,17 @@ describe('Client', () => {
   describe('.login()', () => {
     it('should invoke sdk.login()', async () => {
       const client = new Client(config);
-      await client.login();
+      const result = await client.login();
+      expect(result).toBe(undefined);
       expect(client.sdk.login).toBeCalled();
+    });
+  });
+
+  describe('.logout()', () => {
+    it('should remove credentials', async () => {
+      const client = new Client(config);
+      const result = await client.logout();
+      expect(result).toBe(undefined);
     });
   });
 

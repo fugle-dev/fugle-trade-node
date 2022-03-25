@@ -4,7 +4,8 @@
 
 - [Class: FugleTrade](#class-fugletrade)
   - [Constructor: new FugleTrade(options)](#constructor-new-fugletradeoptions)
-  - [fugle.login(account, password)](#fugleloginaccount-password)
+  - [fugle.login()](#fuglelogin)
+  - [fugle.logout()](#fuglelogout)
   - [fugle.placeOrder(order)](#fugleplaceorderorder)
   - [fugle.replacePrice(order, price)](#fuglereplacepriceorder-price)
   - [fugle.replaceQuantity(order, quantity)](#fuglereplacequantityorder-quantity)
@@ -60,20 +61,24 @@ This class represents a client that uses remote services from the server.
 
 Create a new `FugleTrade` instance.
 
-### `fugle.login(account, password)`
+### `fugle.login()`
 
-- `account` {string} The acount ID of the user.
-- `password` {string} The password of the user.
 - Returns: {Promise} Fulfills with `undefined` upon success.
 
 Log in to the remote server to begin using services.
+
+### `fugle.logout()`
+
+- Returns: {Promise} Fulfills with `undefined` upon success.
+
+Log out and remove the credentials of the logged in account.
 
 ### `fugle.placeOrder(order)`
 
 - `order` {Order} The order to be placed.
 - Returns: {Promise} Fulfills with an {PlaceOrderResponse} upon success.
 
-Place an order for the logged account.
+Place an order for the logged in account.
 
 ### `fugle.replacePrice(order, price)`
 
@@ -81,7 +86,7 @@ Place an order for the logged account.
 - `price` {number} The price of replace.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
-Replace the order to change price for the logged account.
+Replace the order to change price for the logged in account.
 
 ### `fugle.replaceQuantity(order, quantity)`
 
@@ -89,7 +94,7 @@ Replace the order to change price for the logged account.
 - `quantity` {number} The price of quantity.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
-Replace the order to change quantity for the logged account.
+Replace the order to change quantity for the logged in account.
 
 ### `fugle.replaceOrder(order, options)`
 
@@ -99,14 +104,14 @@ Replace the order to change quantity for the logged account.
   - `quantity` {number} The price of quantity.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
-Replace the order for the logged account. Note that one and only one of the `price` or `quantity` options must be specified.
+Replace the order for the logged in account. Note that one and only one of the `price` or `quantity` options must be specified.
 
 ### `fugle.cancelOrder(order)`
 
 - `order` {OrderResult} The working order to be canceled.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
-Cancel the order for the logged account.
+Cancel the order for the logged in account.
 
 ### `fugle.getOrders()`
 

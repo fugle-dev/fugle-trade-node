@@ -12,17 +12,24 @@
 $ npm install --save @fugle/trade
 ```
 
+## Importing
+
+```js
+// Using Node.js `require()`
+const { FugleTrade, Order } = require('@fugle/trade');
+
+// Using ES6 imports
+import { FugleTrade, Order } from '@fugle/trade';
+```
+
 ## Quick Start
 
 ```js
 import { FugleTrade, Order } from '@fugle/trade';
 
-const fugle = new FugleTrade({
-  configPath: '/path/to/config.ini',
-  certPass: 'YOUR_CERTIFICATE_PASSWORD',
-});
+const fugle = new FugleTrade({ configPath: '/path/to/config.ini' });
 
-fugle.login('YOUR_ACCOUNT', 'YOUR_PASSWORD').then(() => {
+fugle.login().then(() => {
   fugle.streamer.connect();
 
   fugle.streamer.on('connect', () => {
@@ -65,13 +72,10 @@ Make sure you have applied to use Fugle trading API, downloaded the configuratio
 
 ### Creating a client
 
-First, create a `FugleTrade` client with `configPath` and `certPass` options:
+First, create a `FugleTrade` client with `configPath` option:
 
 ```js
-const fugle = new FugleTrade({
-  configPath: '/path/to/config.ini',
-  certPass: 'YOUR_CERTIFICATE_PASSWORD',
-});
+const fugle = new FugleTrade({ configPath: '/path/to/config.ini' });
 ```
 
 ### Logining to server
@@ -80,7 +84,14 @@ After creating the client, you need to log in to the remote server to obtain a v
 
 
 ```js
-await fugle.login('YOUR_ACCOUNT', 'YOUR_PASSWORD');
+await fugle.login();
+```
+
+When you log in for the first time, you need to set your account password and certificate password:
+
+```sh
+? Enter esun account password ********
+? Enter cert password ********
 ```
 
 Once logged in, you can start placing orders and viewing account information:
@@ -97,6 +108,12 @@ const inventories = await fugle.getInventories();
 
 // Retrieve incoming settlements
 const settlements = await fugle.getSettlements();
+```
+
+When you want to log in with another account, or need to reset your certificate password, please log out first:
+
+```js
+await fugle.logout();
 ```
 
 ### Placing an order
@@ -141,13 +158,13 @@ After that, you can choose one of the orders to replace or cancel it.
 const [ order, ...others ] = orders;
 
 // Replace the order to change price
-await replacePrice(order, 24.5);
+await fugle.replacePrice(order, 24.5);
 
 // Replace the order to change quantity
-await replaceQuantity(order, 1);
+await fugle.replaceQuantity(order, 1);
 
 // Cancel the order
-await cancelOrder(order);
+await fugle.cancelOrder(order);
 ```
 
 ### Connecting to streamer

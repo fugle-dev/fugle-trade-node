@@ -26,7 +26,7 @@ export class Client {
   constructor(private readonly config: ClientConfig) {
     const { apiUrl, apiKey, apiSecret, certPath, certPass, aid, password } = config;
     if (certPass && password) {
-      this[SDK] = new CoreSdk(apiUrl, '', apiKey, apiSecret, '', certPath, certPass, aid);
+      this[SDK] = new CoreSdk(apiUrl, aid, certPath, certPass, apiKey, apiSecret);
     }
   }
 
@@ -42,7 +42,7 @@ export class Client {
     if (!this.sdk) {
       const { password, certPass } = await loadCredentials(this.config.aid);
       const { apiUrl, apiKey, apiSecret, certPath, aid } = this.config;
-      this[SDK] = new CoreSdk(apiUrl, '', apiKey, apiSecret, '', certPath, certPass, aid);
+      this[SDK] = new CoreSdk(apiUrl, aid, certPath, certPass, apiKey, apiSecret);
       this.config.password = password;
     }
     this.sdk.login(this.config.aid, this.config.password);
@@ -96,7 +96,26 @@ export class Client {
   async getOrders(): Promise<PlacedOrder[]> {
     const response = this.sdk.getOrderResults();
     const parsed = JSON.parse(response) as ParsedOrderResult;
-    return parsed.data.orderResults.map(order => new PlacedOrder(order));
+    return parsed.data.orderResults
+      .map(order => {
+        const { apCode, stockNo } = order;
+        const unit = this.sdk.getVolumePerUnit(stockNo);
+        const result = { ...order };
+        if(apCode === "4" || apCode === "5") {
+          result.orgQtyShare = result.orgQty;
+          result.matQtyShare = result.matQty;
+          result.celQtyShare = result.celQty;
+          result.orgQty = (Number(result.orgQty) / unit).toString();
+          result.matQty = (Number(result.matQty) / unit).toString();
+          result.celQty = (Number(result.celQty) / unit).toString();
+        } else {
+          result.orgQtyShare = (Number(result.orgQty) * unit).toString();
+          result.matQtyShare = (Number(result.matQty) * unit).toString();
+          result.celQtyShare = (Number(result.celQty) * unit).toString();
+        }
+        return result;
+      })
+      .map(order => new PlacedOrder(order));
   }
 
   // Must login first

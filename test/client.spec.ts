@@ -22,6 +22,7 @@ jest.mock('@fugle/trade-core', () => {
         getMachineTime: () => readFileSync('./test/fixtures/response-machine-time.txt').toString(),
         getSettlements: () => readFileSync('./test/fixtures/response-settlements.txt').toString(),
         getKeyInfo: () => readFileSync('./test/fixtures/response-key-info.txt').toString(),
+        getVolumePerUnit: () => 1000,
       };
     },
   };
@@ -189,7 +190,7 @@ describe('Client', () => {
       const client = new Client(config);
       await client.login();
       const response = await client.getOrders();
-      const data = readFileSync('./test/fixtures/response-orders.txt').toString();
+      const data = readFileSync('./test/fixtures/response-orders-from-sdk.txt').toString();
       const parsed = JSON.parse(data);
       expect(response).toEqual(parsed.data.orderResults.map((order: OrderResult) => new PlacedOrder(order)));
     });

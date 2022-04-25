@@ -101,7 +101,7 @@ export class Client {
         const { apCode, stockNo } = order;
         const unit = this.sdk.getVolumePerUnit(stockNo);
         const result = { ...order };
-        if(apCode === "4" || apCode === "5") {
+        if(apCode === '4' || apCode === '5') {
           result.orgQtyShare = result.orgQty;
           result.matQtyShare = result.matQty;
           result.celQtyShare = result.celQty;

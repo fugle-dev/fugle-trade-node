@@ -6,7 +6,7 @@ const PAYLOAD = Symbol('PlacedOrder#payload');
 export class PlacedOrder {
   private [PAYLOAD]: PlacedOrderPayload;
 
-    constructor(payload: any) {
+  constructor(payload: Record<string, string>) {
     /* istanbul ignore next */
     this[PAYLOAD] = {
       ...payload,

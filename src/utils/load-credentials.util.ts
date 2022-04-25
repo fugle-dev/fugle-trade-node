@@ -20,4 +20,4 @@ export async function loadCredentials(account: string): Promise<Credentials> {
     password: password || anwsers.password,
     certPass: certPass || anwsers.certPass,
   };
-};
+}

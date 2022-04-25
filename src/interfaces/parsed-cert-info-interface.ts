@@ -5,4 +5,4 @@ export interface ParsedCertInfo {
   serial: string;
 }
 
-export interface CertInfo extends ParsedCertInfo {};
+export type CertInfo = ParsedCertInfo;

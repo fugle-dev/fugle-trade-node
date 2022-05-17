@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/fugle-dev/fugle-trade-node/compare/v0.1.0...v0.1.1) (2022-05-17)
+
+
+### Bug Fixes
+
+* rebuild dist to update core version ([6011e7f](https://github.com/fugle-dev/fugle-trade-node/commit/6011e7f9ed51726b4b0aab957b73bf7fc34991f0))
+
 ## [0.1.0](https://github.com/fugle-dev/fugle-trade-node/compare/v0.1.0-beta.1...v0.1.0) (2022-04-25)
 
 ## [0.1.0-beta.1](https://github.com/fugle-dev/fugle-trade-node/compare/v0.1.0-beta.0...v0.1.0-beta.1) (2022-04-16)

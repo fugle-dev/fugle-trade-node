@@ -43,7 +43,7 @@ fugle.login().then(() => {
       apCode: Order.ApCode.Common,
       priceFlag: Order.PriceFlag.Limit,
       bsFlag: Order.BsFlag.ROD,
-      trade: Order.TradeType.Cash,
+      trade: Order.Trade.Cash,
     });
 
     // place order

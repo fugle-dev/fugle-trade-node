@@ -35,7 +35,7 @@ export class Streamer {
     return this.emitter.removeListener(eventName, listener);
   }
 
-  removeAllListeners(event: string): EventEmitter {
+  removeAllListeners(event?: string): EventEmitter {
     return this.emitter.removeAllListeners(event);
   }
 

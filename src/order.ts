@@ -64,7 +64,7 @@ export class Order {
     return {
       stockNo: String(this.payload.stockNo),
       buySell: String(this.payload.buySell),
-      price: String(this.payload.price),
+      price: String(this.payload.price || ''),
       quantity: String(this.payload.quantity),
       apCode: String(this.payload.apCode),
       priceFlag: String(this.payload.priceFlag),

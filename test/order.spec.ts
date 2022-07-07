@@ -131,5 +131,38 @@ describe('Order', () => {
         trade: '0',
       });
     });
+
+    it('should set price to empty string', () => {
+      const order = new Order({
+        buySell: Order.Side.Buy,
+        stockNo: '2884',
+        quantity: 1,
+        apCode: Order.ApCode.Common,
+        priceFlag: Order.PriceFlag.LimitDown,
+        bsFlag: Order.BsFlag.ROD,
+        trade: Order.Trade.Cash,
+      });
+
+      expect(order.payload).toEqual({
+        buySell: Order.Side.Buy,
+        stockNo: '2884',
+        quantity: 1,
+        apCode: Order.ApCode.Common,
+        priceFlag: Order.PriceFlag.LimitDown,
+        bsFlag: Order.BsFlag.ROD,
+        trade: Order.Trade.Cash,
+      });
+
+      expect(order.toObject()).toEqual({
+        buySell: 'B',
+        stockNo: '2884',
+        price: '',
+        quantity: '1',
+        apCode: '1',
+        priceFlag: '2',
+        bsFlag: 'R',
+        trade: '0',
+      });
+    });
   });
 });

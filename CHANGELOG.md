@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/fugle-dev/fugle-trade-node/compare/v0.1.4...v0.2.0) (2022-07-07)
+
+
+### Features
+
+* make Streamer inherit from EventEmitter ([e520ff0](https://github.com/fugle-dev/fugle-trade-node/commit/e520ff0b519b79a211555e6c138f3c06078ccdb0))
+
+
+### Bug Fixes
+
+* set price to empty string when price is not set ([61d6b95](https://github.com/fugle-dev/fugle-trade-node/commit/61d6b95d9fe3f61b95f95c76a3e757259582ecbe))
+
 ### [0.1.4](https://github.com/fugle-dev/fugle-trade-node/compare/v0.1.3...v0.1.4) (2022-07-06)
 
 ### [0.1.3](https://github.com/fugle-dev/fugle-trade-node/compare/v0.1.2...v0.1.3) (2022-07-06)

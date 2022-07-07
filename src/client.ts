@@ -20,8 +20,8 @@ const SDK = Symbol('Client#sdk');
 const STREAMER = Symbol('Client#streamer');
 
 export class Client {
-  private [SDK]: CoreSdk;
-  private [STREAMER]: Streamer;
+  private [SDK]!: CoreSdk;
+  private [STREAMER]!: Streamer;
 
   constructor(private readonly config: ClientConfig) {
     const { apiUrl, apiKey, apiSecret, certPath, certPass, aid, password } = config;
@@ -34,19 +34,27 @@ export class Client {
     return this[SDK];
   }
 
+  set sdk(sdk: CoreSdk) {
+    this[SDK] = sdk;
+  }
+
   get streamer(): Streamer {
     return this[STREAMER];
+  }
+
+  set streamer(streamer: Streamer) {
+    this[STREAMER] = streamer;
   }
 
   async login(): Promise<void> {
     if (!this.sdk) {
       const { password, certPass } = await loadCredentials(this.config.aid);
       const { apiUrl, apiKey, apiSecret, certPath, aid } = this.config;
-      this[SDK] = new CoreSdk(apiUrl, aid, certPath, certPass, apiKey, apiSecret);
+      this.sdk = new CoreSdk(apiUrl, aid, certPath, certPass, apiKey, apiSecret);
       this.config.password = password;
     }
     this.sdk.login(this.config.aid, this.config.password);
-    this[STREAMER] = new Streamer(this.sdk.getWsUrl());
+    this.streamer = new Streamer(this.sdk.getWsUrl());
   }
 
   async logout(): Promise<void> {

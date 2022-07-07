@@ -43,9 +43,9 @@ describe('Streamer', () => {
     it('should add the listener', async () => {
       const cb = jest.fn();
       const streamer = new Streamer(url);
-      streamer.emitter.on = jest.fn();
+      streamer.on = jest.fn();
       streamer.on('message', cb);
-      expect(streamer.emitter.on).toBeCalledWith('message', cb);
+      expect(streamer.on).toBeCalledWith('message', cb);
     });
   });
 
@@ -53,9 +53,9 @@ describe('Streamer', () => {
     it('should add one-time listener', async () => {
       const cb = jest.fn();
       const streamer = new Streamer(url);
-      streamer.emitter.once = jest.fn();
+      streamer.once = jest.fn();
       streamer.once('message', cb);
-      expect(streamer.emitter.once).toBeCalledWith('message', cb);
+      expect(streamer.once).toBeCalledWith('message', cb);
     });
   });
 
@@ -63,45 +63,45 @@ describe('Streamer', () => {
     it('should remove the listener', async () => {
       const cb = jest.fn();
       const streamer = new Streamer(url);
-      streamer.emitter.removeListener = jest.fn();
+      streamer.removeListener = jest.fn();
       streamer.removeListener('message', cb);
-      expect(streamer.emitter.removeListener).toBeCalledWith('message', cb);
+      expect(streamer.removeListener).toBeCalledWith('message', cb);
     });
   });
 
   describe('.removeAllListener()', () => {
     it('should remove the listener', async () => {
       const streamer = new Streamer(url);
-      streamer.emitter.removeAllListeners = jest.fn();
+      streamer.removeAllListeners = jest.fn();
       streamer.removeAllListeners('message');
-      expect(streamer.emitter.removeAllListeners).toBeCalledWith('message');
+      expect(streamer.removeAllListeners).toBeCalledWith('message');
     });
   });
 
   describe('.eventNames()', () => {
     it('should get the listening events', async () => {
       const streamer = new Streamer(url);
-      streamer.emitter.eventNames = jest.fn();
+      streamer.eventNames = jest.fn();
       streamer.eventNames();
-      expect(streamer.emitter.eventNames).toBeCalledTimes(1);
+      expect(streamer.eventNames).toBeCalledTimes(1);
     });
   });
 
   describe('.listeners()', () => {
     it('should get listeners', async () => {
       const streamer = new Streamer(url);
-      streamer.emitter.listeners = jest.fn();
+      streamer.listeners = jest.fn();
       streamer.listeners('message');
-      expect(streamer.emitter.listeners).toBeCalledWith('message');
+      expect(streamer.listeners).toBeCalledWith('message');
     });
   });
 
   describe('.listenerCount()', () => {
     it('should get the number of listeners', async () => {
       const streamer = new Streamer(url);
-      streamer.emitter.listenerCount = jest.fn();
+      streamer.listenerCount = jest.fn();
       streamer.listenerCount('message');
-      expect(streamer.emitter.listenerCount).toBeCalledWith('message');
+      expect(streamer.listenerCount).toBeCalledWith('message');
     });
   });
 

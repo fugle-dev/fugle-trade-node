@@ -56,8 +56,9 @@ This class represents a client that uses remote services from the server.
     - `apiKey` {string} FugleTrade API key.
     - `apiSecret` {string} FugleTrade API secret.
     - `certPath` {string} The path of certificate.
+    - `certPass` {string} The certificate password.
     - `aid` {string} The account ID.
-  - `certPass` {string} The certificate password.
+    - `password` {string} The account password.
 
 Create a new `FugleTrade` instance.
 

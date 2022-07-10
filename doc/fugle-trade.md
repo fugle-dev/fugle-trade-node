@@ -83,7 +83,7 @@ Place an order for the logged in account.
 
 ### `fugle.replacePrice(order, price)`
 
-- `order` {OrderResult} The working order to be replaced.
+- `order` {PlacedOrder} The working order to be replaced.
 - `price` {number} The price of replace.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
@@ -91,32 +91,32 @@ Replace the order to change price for the logged in account.
 
 ### `fugle.replaceQuantity(order, quantity)`
 
-- `order` {OrderResult} The working order to be replaced.
-- `quantity` {number} The price of quantity.
+- `order` {PlacedOrder} The working order to be replaced.
+- `quantity` {number} The price of replace.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Replace the order to change quantity for the logged in account.
 
 ### `fugle.replaceOrder(order, options)`
 
-- `order` {OrderResult} The working order to be replaced.
+- `order` {PlacedOrder} The working order to be replaced.
 - `options` {Object} Set of configurable options to replace the order.
-  - `price` {number} The price of price.
-  - `quantity` {number} The price of quantity.
+  - `price` {number} The price of replace.
+  - `quantity` {number} The quantity of replace.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Replace the order for the logged in account. Note that one and only one of the `price` or `quantity` options must be specified.
 
 ### `fugle.cancelOrder(order)`
 
-- `order` {OrderResult} The working order to be canceled.
+- `order` {PlacedOrder} The working order to be canceled.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Cancel the order for the logged in account.
 
 ### `fugle.getOrders()`
 
-- Returns: {Promise} Fulfills with {OrderResult[]} upon success.
+- Returns: {Promise} Fulfills with {PlacedOrder[]} upon success.
 
 Gets existing orders of the logged account.
 
@@ -175,7 +175,7 @@ Emitted when the connection is closed.
 
 - `data` {string} The message content of the order confirmation. 
 
-Emitted when an order is confirmed.
+Emitted when an order is confirmed. The `data` is the message content of the order confirmation. 
 
 ### Event: `'trade'`
 
@@ -265,81 +265,83 @@ This class represents an order to be placed.
 ### Constructor: `new Order(payload)`
 
 - `payload` {Object} Set payload of the order.
-  - `buySell` {Order.Side}
-  - `price` {number}
-  - `quantity` {number}
-  - `apCode` {Order.ApCode}
-  - `priceFlag` {Order.PriceFlag}
-  - `bsFlag` {Order.BsFlag}
-  - `trade` {Order.TradeType}
+  - `stockNo` {string} The symbol of the equity.
+  - `buySell` {Order.Side} The buy/sell side.
+  - `price` {number} The price of the order.
+  - `quantity` {number} The quantity of the order.
+  - `apCode` {Order.ApCode} The trading system.
+  - `priceFlag` {Order.PriceFlag} The price flag.
+  - `bsFlag` {Order.BsFlag} The order type.
+  - `trade` {Order.TradeType} The trade type.
 
 Create a new `Order` instance.
 
 ### `order.payload`
 
 - {Object}
-  - `buySell` {Order.Side}
-  - `price` {number}
-  - `quantity` {number}
-  - `apCode` {Order.ApCode}
-  - `priceFlag` {Order.PriceFlag}
-  - `bsFlag` {Order.BsFlag}
-  - `trade` {Order.TradeType}
+  - `stockNo` {string} The symbol of the equity.
+  - `buySell` {Order.Side} The buy/sell side.
+  - `price` {number} The price of the order.
+  - `quantity` {number} The quantity of the order.
+  - `apCode` {Order.ApCode} The trading system.
+  - `priceFlag` {Order.PriceFlag} The price flag.
+  - `bsFlag` {Order.BsFlag} The order type.
+  - `trade` {Order.TradeType} The trade type.
 
 The payload of the order.
 
 ### `order.setSymbol(symbol)`
 
-- `symbol` {string}
+- `symbol` {string} The symbol of the equity.
 - Returns: {this}
 
 Sets `stockNo` value for the order payload.
 
 ### `order.setSide(side)`
 
-- `side` {Order.Side}
+- `side` {Order.Side} The buy/sell side.
 - Returns: {this}
 
 Sets `buySell` value for the order payload.
 
 ### `order.setPrice(price)`
 
-- `side` {number}
+- `price` {number} The price of the order.
 - Returns: {this}
 
 Sets `price` value for the order payload.
 
 ### `order.setQuantity(quantity)`
 
-- `quantity` {number}
+- `quantity` {number} The quantity of the order.
 - Returns: {this}
 
 Sets `quantity` value for the order payload.
 
 ### `order.setApCode(apCode)`
 
-- `apCode` {Order.ApCode}
+- `apCode` {Order.ApCode} The trading system.
 - Returns: {this}
 
 Sets `apCode` value for the order payload.
 
 ### `order.setPriceFlag(priceFlag)`
 
-- `apCode` {Order.PriceFlag}
+- `priceFlag` {Order.PriceFlag} The price flag.
 - Returns: {this}
 
 Sets `priceFlag` value for the order payload.
 
 ### `order.setBsFlag(bsFlag)`
 
-- `bsFlag` {Order.BsFlag}
+- `bsFlag` {Order.BsFlag} The order type.
 - Returns: {this}
 
 Sets `bsFlag` value for the order payload.
 
 ### `order.setTradeType(tradeType)`
 
-- `tradeType` {Order.TradeType}
+- `tradeType` {Order.TradeType} The trade type.
 - Returns: {this}
 
 Sets `trade` value for the order payload.

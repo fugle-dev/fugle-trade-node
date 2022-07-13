@@ -74,14 +74,14 @@
 
 - 回傳: {Promise} 成功時將使用 `undefined` 履行。
 
-登入並刪除已登入帳號的憑證。
+登出並刪除登入帳號的驗證憑據。
 
 ### `fugle.placeOrder(order)`
 
 - `order` {Order} 要下的委託單。
 - 回傳: {Promise} 成功時將使用 {PlaceOrderResponse} 履行。
 
-為已登入的帳號下委託單。
+使用登入帳號下委託單。
 
 ### `fugle.replacePrice(order, price)`
 
@@ -89,7 +89,7 @@
 - `price` {number} 更改的價格。
 - 回傳: {Promise} 成功時將使用 {ReplaceOrderResponse} 履行。
 
-為已登入的帳號更改進行中委託單的價格。
+更改登入帳號的進行中委託單的價格。
 
 ### `fugle.replaceQuantity(order, quantity)`
 
@@ -97,7 +97,7 @@
 - `quantity` {number} 更改的數量。
 - 回傳: {Promise} 成功時將使用 {ReplaceOrderResponse} 履行。
 
-為已登入的帳號更改進行中委託單的數量。
+更改登入帳號的進行中委託單的數量。
 
 ### `fugle.replaceOrder(order, options)`
 
@@ -107,45 +107,45 @@
   - `quantity` {number} 更改的數量。
 - 回傳: {Promise} 成功時將使用 {ReplaceOrderResponse} 履行。
 
-為已登入的帳號更改進行中委託單的價格或數量。請注意，必須指定 `price` 或 `quantity` 選項，且只有一個選項可以被指定。
+更改登入帳號的進行中委託單的價格或數量。請注意，必須指定 `price` 或 `quantity` 選項，且只有一個選項可以被指定。
 
 ### `fugle.cancelOrder(order)`
 
 - `order` {PlacedOrder} 要取消的進行中委託單。
 - 回傳: {Promise} 成功時將使用 {ReplaceOrderResponse} 履行。
 
-為已登入的帳號取消進行中委託單。
+取消登入帳號的進行中委託單。
 
 ### `fugle.getOrders()`
 
 - 回傳: {Promise} 成功時將使用 {OrderResult[]} 履行。
 
-為已登入的帳號取得現有的委託單。
+取得登入帳號的現有委託單。
 
 ### `fugle.getTransactions(range)`
 
 - `range` {string} 可用的範圍為 `0d` (日內), `3d` (近三日), `1m` (近一月) 或 `3m` (近三月)。
 - 回傳 {Promise} 成功時將使用 {Trade[]} 履行。
 
-為已登入的帳號取得成交明細。
+取得登入帳號的成交明細。
 
 ### `fugle.getInventories()`
 
 - 回傳: {Promise} 成功時將使用 {Stock[]} 履行。
 
-為已登入的帳號取得現有庫存。
+取得登入帳號的現有庫存。
 
 ### `fugle.getSettlements()`
 
 - 回傳: {Promise} 成功時將使用 {Settlement[]} 履行。
 
-為已登入的帳號取得交割資訊。
+取得登入帳號的交割資訊。
 
 ### `fugle.getKeyInfo()`
 
 - 回傳: {Promise} 成功時將使用 {KeyInfo} 履行。
 
-取得已登入帳號的 API 金鑰資訊。
+取得登入帳號的 API 金鑰資訊。
 
 ### `fugle.getMachineTime()`
 
@@ -267,83 +267,83 @@
 ### Constructor: `new Order(payload)`
 
 - `payload` {Object} 設置委託單的酬載。
-  - `stockNo` {string} 股票代號
-  - `buySell` {Order.Side} 買賣別
-  - `price` {number} 價格
-  - `quantity` {number} 數量
-  - `apCode` {Order.ApCode} 盤別
-  - `priceFlag` {Order.PriceFlag} 價格旗標
-  - `bsFlag` {Order.BsFlag} 委託單別
-  - `trade` {Order.TradeType} 交易類別
+  - `stockNo` {string} 股票代號。
+  - `buySell` {Order.Side} 買賣別。
+  - `price` {number} 價格。
+  - `quantity` {number} 數量。
+  - `apCode` {Order.ApCode} 盤別。
+  - `priceFlag` {Order.PriceFlag} 價格旗標。
+  - `bsFlag` {Order.BsFlag} 委託單別。
+  - `trade` {Order.TradeType} 交易類別。
 
 建立一個新的 `Order` 實體。
 
 ### `order.payload`
 
 - {Object}
-  - `stockNo` {string} 股票代號
-  - `buySell` {Order.Side} 買賣別
-  - `price` {number} 價格
-  - `quantity` {number} 數量
-  - `apCode` {Order.ApCode} 盤別
-  - `priceFlag` {Order.PriceFlag} 價格旗標
-  - `bsFlag` {Order.BsFlag} 委託單別
-  - `trade` {Order.TradeType} 交易類別
+  - `stockNo` {string} 股票代號。
+  - `buySell` {Order.Side} 買賣別。
+  - `price` {number} 價格。
+  - `quantity` {number} 數量。
+  - `apCode` {Order.ApCode} 盤別。
+  - `priceFlag` {Order.PriceFlag} 價格旗標。
+  - `bsFlag` {Order.BsFlag} 委託單別。
+  - `trade` {Order.TradeType} 交易類別。
 
 委託單的酬載。
 
 ### `order.setSymbol(symbol)`
 
-- `symbol` {string} 股票代號
+- `symbol` {string} 股票代號。
 - 回傳: {this}
 
 設置委託單酬載的 `stockNo` 值。
 
 ### `order.setSide(side)`
 
-- `side` {Order.Side} 買賣別
+- `side` {Order.Side} 買賣別。
 - 回傳: {this}
 
 設置委託單酬載的 `buySell` 值。
 
 ### `order.setPrice(price)`
 
-- `price` {number} 價格
+- `price` {number} 價格。
 - 回傳: {this}
 
 設置委託單酬載的 `price` 值。
 
 ### `order.setQuantity(quantity)`
 
-- `quantity` {number} 數量
+- `quantity` {number} 數量。
 - 回傳: {this}
 
 設置委託單酬載的 `quantity` 值。
 
 ### `order.setApCode(apCode)`
 
-- `apCode` {Order.ApCode} 盤別
+- `apCode` {Order.ApCode} 盤別。
 - 回傳: {this}
 
 設置委託單酬載的 `apCode` 值。
 
 ### `order.setPriceFlag(priceFlag)`
 
-- `priceFlag` {Order.PriceFlag} 價格旗標
+- `priceFlag` {Order.PriceFlag} 價格旗標。
 - 回傳: {this}
 
 設置委託單酬載的 `priceFlag` 值。
 
 ### `order.setBsFlag(bsFlag)`
 
-- `bsFlag` {Order.BsFlag} 委託單別
+- `bsFlag` {Order.BsFlag} 委託單別。
 - 回傳: {this}
 
 設置委託單酬載的 `bsFlag` 值。
 
 ### `order.setTradeType(tradeType)`
 
-- `tradeType` {Order.TradeType} 交易類別
+- `tradeType` {Order.TradeType} 交易類別。
 - 回傳: {this}
 
 設置委託單酬載的 `trade` 值。

@@ -141,7 +141,7 @@ const order = new Order({
 await fugle.placeOrder(order);
 ```
 
-關於可用選項的詳細資訊，請至 [`/doc/fugle-trade.md`](./doc/fugle-trade.md#class-order) 查閱。
+關於可用選項的詳細資訊，請至 [`/doc/fugle-trade-zh-TW.md`](./doc/fugle-trade-zh-TW.md#class-order) 查閱。
 
 ### 修改或取消委託單
 
@@ -212,7 +212,7 @@ fugle.streamer.disconnect();
 
 ## 文件
 
-關於 `@fugle/trade` 用法的詳細說明，請至 [`/doc/fugle-trade.md`](./doc/fugle-trade.md) 查閱。
+關於 `@fugle/trade` 用法的詳細說明，請至 [`/doc/fugle-trade-zh-TW.md`](./doc/fugle-trade-zh-TW.md) 查閱。
 
 ## 授權
 

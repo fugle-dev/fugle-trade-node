@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { convertWsObject } from '@fugle/trade-core';
 import { WS } from 'jest-websocket-mock';
 import { Streamer } from '../src/streamer';
 
@@ -133,8 +134,9 @@ describe('Streamer', () => {
       streamer.once('order', cb);
       streamer.connect();
       await server.connected;
-      const response = readFileSync('./test/fixtures/message-order.txt').toString();
-      server.send(response);
+      const rawresponse = readFileSync('./test/fixtures/message-order.txt').toString();
+      const response = JSON.parse(convertWsObject(rawresponse))
+      server.send(rawresponse);
       expect(cb).toBeCalledWith(response);
     });
 
@@ -144,8 +146,9 @@ describe('Streamer', () => {
       streamer.once('trade', cb);
       streamer.connect();
       await server.connected;
-      const response = readFileSync('./test/fixtures/message-trade.txt').toString();
-      server.send(response);
+      const rawresponse = readFileSync('./test/fixtures/message-trade.txt').toString();
+      const response = JSON.parse(convertWsObject(rawresponse))
+      server.send(rawresponse);
       expect(cb).toBeCalledWith(response);
     });
   });

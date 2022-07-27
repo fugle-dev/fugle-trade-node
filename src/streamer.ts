@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import { WebSocket } from 'ws';
 import { MessageKind } from './enums';
 import { CONNECT_EVENT, DISCONNECT_EVENT, MESSAGE_EVENT, ERROR_EVENT, ORDER_EVENT, TRADE_EVENT } from './constants';
+import { convertWsObject } from '@fugle/trade-core';
 
 const SOCKET = Symbol('Streamer#socket');
 
@@ -37,11 +38,11 @@ export class Streamer extends EventEmitter {
 
   private handleMessage(message: string): void {
     try {
-      const msg = JSON.parse(message);
-      const kind = JSON.parse(msg['data']['$value'])['Kind'] as MessageKind;
+      const msg = JSON.parse(convertWsObject(message));
+      const kind = msg.kind as MessageKind;
       const handleMessage = {
-        [MessageKind.ACK]: () => this.emit(ORDER_EVENT, message),
-        [MessageKind.MAT]: () => this.emit(TRADE_EVENT, message),
+        [MessageKind.ACK]: () => this.emit(ORDER_EVENT, msg),
+        [MessageKind.MAT]: () => this.emit(TRADE_EVENT, msg),
       };
       handleMessage[kind] && handleMessage[kind]();
     } catch (err) {

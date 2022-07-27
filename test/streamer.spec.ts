@@ -134,10 +134,10 @@ describe('Streamer', () => {
       streamer.once('order', cb);
       streamer.connect();
       await server.connected;
-      const rawresponse = readFileSync('./test/fixtures/message-order.txt').toString();
-      const response = JSON.parse(convertWsObject(rawresponse))
-      server.send(rawresponse);
-      expect(cb).toBeCalledWith(response);
+      const response = readFileSync('./test/fixtures/message-order.txt').toString();
+      const message = JSON.parse(convertWsObject(response))
+      server.send(response);
+      expect(cb).toBeCalledWith(message);
     });
 
     it('should emit the trade event', async () => {
@@ -146,10 +146,10 @@ describe('Streamer', () => {
       streamer.once('trade', cb);
       streamer.connect();
       await server.connected;
-      const rawresponse = readFileSync('./test/fixtures/message-trade.txt').toString();
-      const response = JSON.parse(convertWsObject(rawresponse))
-      server.send(rawresponse);
-      expect(cb).toBeCalledWith(response);
+      const response = readFileSync('./test/fixtures/message-trade.txt').toString();
+      const message = JSON.parse(convertWsObject(response))
+      server.send(response);
+      expect(cb).toBeCalledWith(message);
     });
   });
 });

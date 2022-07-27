@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
 import { WebSocket } from 'ws';
+import { convertWsObject } from '@fugle/trade-core';
 import { MessageKind } from './enums';
 import { CONNECT_EVENT, DISCONNECT_EVENT, MESSAGE_EVENT, ERROR_EVENT, ORDER_EVENT, TRADE_EVENT } from './constants';
-import { convertWsObject } from '@fugle/trade-core';
 
 const SOCKET = Symbol('Streamer#socket');
 

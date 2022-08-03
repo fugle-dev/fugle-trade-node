@@ -516,41 +516,41 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fugle/trade-core-darwin-arm64@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-arm64/-/trade-core-darwin-arm64-0.3.0.tgz#4d28215ab02c2059033a24e52ffb7a6d26e8d5d6"
-  integrity sha512-K+LM2UPANtCmfluW/ep6vEFcZLqrgtxJ7jk9B+wvkI8v1r/PJQiOVFkFAQfNUkVsBLZC91s2GADXQLYYUnLidQ==
+"@fugle/trade-core-darwin-arm64@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-arm64/-/trade-core-darwin-arm64-0.3.1.tgz#7dda6cb82e77bc5b8dbf60e76146f422b1418941"
+  integrity sha512-EAWaZ53P0dtfDCgWG8XLjp9dZyRiRQYu+LMjhq0X8lZ1UHIJeiWSfacMv1p0stvD0Sqxp2G2TqtO8OycMNyR6A==
 
-"@fugle/trade-core-darwin-x64@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-x64/-/trade-core-darwin-x64-0.3.0.tgz#0c0747bf3df1af012319defde9194ed34985bcc0"
-  integrity sha512-BRAFsZvHP4bhWTFGtPea6TkDFcV44z5In0DcZ77micBkA+HkAf917JHOixRaKapIltXQwNoQDSNGLRIQhR8OTg==
+"@fugle/trade-core-darwin-x64@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-x64/-/trade-core-darwin-x64-0.3.1.tgz#e819aa353cde7893b19913acc83e929bb49a4fe4"
+  integrity sha512-6v6yiATt6dDKO/FF1rG2J6Ytx51bUOnwku/MkfE+JKS2dzM1f2A9l1YUE0BKqrsTDXB5Kr7bT8ARIU9orzysWQ==
 
-"@fugle/trade-core-linux-arm64-gnu@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-arm64-gnu/-/trade-core-linux-arm64-gnu-0.3.0.tgz#cdd036015f04a2f856d396b1a08eed9ae76e45ec"
-  integrity sha512-WAYahqy59dE0ztYQeSqGMk8qfS1T7bZmaBonRXriovE7oeEbV/socSiLeRyhIbovGR2B3ErLi5Kf1VrJHOu0MA==
+"@fugle/trade-core-linux-arm64-gnu@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-arm64-gnu/-/trade-core-linux-arm64-gnu-0.3.1.tgz#b1fb71ed5dde3fb841e7e8a9ebce71dbc8868a58"
+  integrity sha512-OEBoxB4e+R2aCzDussgaq1YV8CC4nQrnqVssfyr7FUIld6a3r5qNPKu+f9LsAfDAJOXTgbiMuP1yjAJY+QwD5w==
 
-"@fugle/trade-core-linux-x64-gnu@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-x64-gnu/-/trade-core-linux-x64-gnu-0.3.0.tgz#d046ebd25534d26ead00d540097362e582ac58e8"
-  integrity sha512-qXNI18qdSgBaUsrVwiiwMsJ0JIRl88uLwYznYSrCb5wyF+bzKGd9gdErDTZc4O2xF/aIZFj/cvXXg5c+EYScAg==
+"@fugle/trade-core-linux-x64-gnu@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-x64-gnu/-/trade-core-linux-x64-gnu-0.3.1.tgz#a5c6390ec715fc9b227a7564c97d59031c66b04b"
+  integrity sha512-5hMO37JT9Xyf42IWD1AVK2CneGQCoVey3Pxv65Fed+ymvALgIqvm4uM+/q1CIbDC2+/23EHR9ilY+yKTJTWp3A==
 
-"@fugle/trade-core-win32-x64-msvc@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-win32-x64-msvc/-/trade-core-win32-x64-msvc-0.3.0.tgz#09b530f676d0e8462b24573233dc66a0beff840a"
-  integrity sha512-RsYSkm8Zy9WeahhNdMtkF95k2b6HSghuVh2A/JNSt0+Y70EnjmaMu2bjQwX/98rxwNFwOAkbOKm11+uWMib+8w==
+"@fugle/trade-core-win32-x64-msvc@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-win32-x64-msvc/-/trade-core-win32-x64-msvc-0.3.1.tgz#913ff45cd559348cd2d649b4cd6179dfb74b85bf"
+  integrity sha512-P4yvCVul8AVf7F/0ra4QCihIsAEvyFqgtDL+HdeEfXWTAffWuz4896TefrNk0YwUD9opB/vtUUxmcyNEE5Y5nw==
 
-"@fugle/trade-core@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core/-/trade-core-0.3.0.tgz#58a2bc7b204adee4cf0afeb322c7dce7774e72f2"
-  integrity sha512-WpydZwoKjuTLy1LPtjfSq6x22B8Gdt2a071SOoz6hKUMVGcI5JV+V5nUXqp62eTzzgcDMJkxdlD8/H9VJG9Bbg==
+"@fugle/trade-core@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core/-/trade-core-0.3.1.tgz#2fce21b35f5ee6a33b45af8cae5b6a804c72e542"
+  integrity sha512-3Q6I3Jn/+RaVKZ4m5k3ooV+57w/+xRNWwwFR0tIPkddZipV1JU8XLCDo4G1NtaMilB79XCpBkcBu4z7+xLUvDw==
   optionalDependencies:
-    "@fugle/trade-core-darwin-arm64" "0.3.0"
-    "@fugle/trade-core-darwin-x64" "0.3.0"
-    "@fugle/trade-core-linux-arm64-gnu" "0.3.0"
-    "@fugle/trade-core-linux-x64-gnu" "0.3.0"
-    "@fugle/trade-core-win32-x64-msvc" "0.3.0"
+    "@fugle/trade-core-darwin-arm64" "0.3.1"
+    "@fugle/trade-core-darwin-x64" "0.3.1"
+    "@fugle/trade-core-linux-arm64-gnu" "0.3.1"
+    "@fugle/trade-core-linux-x64-gnu" "0.3.1"
+    "@fugle/trade-core-win32-x64-msvc" "0.3.1"
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"

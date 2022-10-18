@@ -23,6 +23,9 @@ jest.mock('@fugle/trade-core', () => {
         getSettlements: () => readFileSync('./test/fixtures/response-settlements.txt').toString(),
         getKeyInfo: () => readFileSync('./test/fixtures/response-key-info.txt').toString(),
         getVolumePerUnit: () => 1000,
+        getBalance: () => readFileSync('./test/fixtures/response-balance.txt').toString(),
+        getTradeStatus:  () => readFileSync('./test/fixtures/response-trade-status.txt').toString(),
+        getMarketStatus: () => readFileSync('./test/fixtures/response-market-status.txt').toString(),
       };
     },
   };
@@ -256,6 +259,36 @@ describe('Client', () => {
       const response = await client.getCertInfo();
       const data = readFileSync('./test/fixtures/response-cert-info.txt').toString();
       const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed);
+    });
+  });
+
+  describe('.getBalance()', () => {
+    it('should get parsed certificate info', async () => {
+      const client = new Client(config);
+      const response = await client.getBalance();
+      const data = readFileSync('./test/fixtures/response-balance.txt').toString();
+      const parsed = JSON.parse(data).data;
+      expect(response).toEqual(parsed);
+    });
+  });
+
+  describe('.getMarketStatus()', () => {
+    it('should get parsed certificate info', async () => {
+      const client = new Client(config);
+      const response = await client.getMarketStatus();
+      const data = readFileSync('./test/fixtures/response-market-status.txt').toString();
+      const parsed = JSON.parse(data).data;
+      expect(response).toEqual(parsed);
+    });
+  });
+
+  describe('.getTradeStatus()', () => {
+    it('should get parsed certificate info', async () => {
+      const client = new Client(config);
+      const response = await client.getTradeStatus();
+      const data = readFileSync('./test/fixtures/response-trade-status.txt').toString();
+      const parsed = JSON.parse(data).data;
       expect(response).toEqual(parsed);
     });
   });

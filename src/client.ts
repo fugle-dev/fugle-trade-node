@@ -2,6 +2,7 @@ import { CoreSdk } from '@fugle/trade-core';
 import { Streamer } from './streamer';
 import { Order } from './order';
 import { PlacedOrder } from './placed-order';
+import { PriceFlag } from './enums';
 import { loadCredentials, removeCredentials } from './utils';
 import { ClientConfig } from './interfaces/client-config.interface';
 import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interface';
@@ -13,6 +14,9 @@ import { ParsedSettlements, Settlement } from './interfaces/parsed-settlements.i
 import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.interface';
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
+import { MarketStatus, ParsedMarketStatus } from './interfaces/parsed-market-status.interface';
+import { ParsedTradeStatus, TradeStatus } from './interfaces/parsed-trade-status.interface';
+import { BalanceStatus, ParsedBalanceStatus } from './interfaces/parsed-balance.interface';
 
 type Range = '0d' | '3d' | '1m' | '3m';
 
@@ -69,9 +73,9 @@ export class Client {
   }
 
   // Must login first
-  async replacePrice(placedOrder: PlacedOrder, price: number): Promise<ReplaceOrderResponse> {
+  async replacePrice(placedOrder: PlacedOrder, price: number, priceFlag = PriceFlag.Limit): Promise<ReplaceOrderResponse> {
     const order = placedOrder.toObject();
-    const response = this.sdk.modifyPrice(order, price)
+    const response = this.sdk.modifyPrice(order, price, priceFlag)
     const parsed = JSON.parse(response) as ParsedReplaceOrderResponse;
     return parsed.data;
   }
@@ -151,6 +155,27 @@ export class Client {
   async getKeyInfo(): Promise<KeyInfo> {
     const response = this.sdk.getKeyInfo();
     const parsed = JSON.parse(response) as ParsedKeyInfo;
+    return parsed.data;
+  }
+
+  // Must login first
+  async getBalance(): Promise<BalanceStatus> {
+    const response = this.sdk.getBalance();
+    const parsed = JSON.parse(response) as ParsedBalanceStatus;
+    return parsed.data;
+  }
+
+  // Must login first
+  async getTradeStatus(): Promise<TradeStatus> {
+    const response = this.sdk.getTradeStatus();
+    const parsed = JSON.parse(response) as ParsedTradeStatus;
+    return parsed.data;
+  }
+
+  // Must login first
+  async getMarketStatus(): Promise<MarketStatus> {
+    const response = this.sdk.getMarketStatus();
+    const parsed = JSON.parse(response) as ParsedMarketStatus;
     return parsed.data;
   }
 

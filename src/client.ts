@@ -12,6 +12,7 @@ import { ParsedOrderResult } from './interfaces/parsed-order-result.interface';
 import { ParsedSettlements, Settlement } from './interfaces/parsed-settlements.interface';
 import { ParsedBalanceStatus, BalanceStatus } from './interfaces/parsed-balance.interface';
 import { ParsedTradeStatus, TradeStatus } from './interfaces/parsed-trade-status.interface';
+import { ParsedMarketStatus, MarketStatus } from './interfaces/parsed-market-status.interface';
 import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.interface';
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
@@ -164,21 +165,28 @@ export class Client {
   }
 
   // Must login first
+  async getMarketStatus(): Promise<MarketStatus> {
+    const response = this.sdk.getMarketStatus();
+    const parsed = JSON.parse(response) as ParsedMarketStatus;
+    return parsed.data;
+  }
+
+  // Must login first
   async getKeyInfo(): Promise<KeyInfo> {
     const response = this.sdk.getKeyInfo();
     const parsed = JSON.parse(response) as ParsedKeyInfo;
     return parsed.data;
   }
 
-  async getMachineTime(): Promise<string> {
-    const response = this.sdk.getMachineTime();
-    const parsed = JSON.parse(response) as ParsedMachineTime;
-    return parsed.data.time;
-  }
-
   async getCertInfo(): Promise<CertInfo> {
     const response = this.sdk.getCertInfo();
     const parsed = JSON.parse(response) as ParsedCertInfo;
     return parsed;
+  }
+
+  async getMachineTime(): Promise<string> {
+    const response = this.sdk.getMachineTime();
+    const parsed = JSON.parse(response) as ParsedMachineTime;
+    return parsed.data.time;
   }
 }

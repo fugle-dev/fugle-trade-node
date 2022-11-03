@@ -2,6 +2,7 @@ import { CoreSdk } from '@fugle/trade-core';
 import { Streamer } from './streamer';
 import { Order } from './order';
 import { PlacedOrder } from './placed-order';
+import { PriceFlag } from './enums';
 import { loadCredentials, removeCredentials } from './utils';
 import { ClientConfig } from './interfaces/client-config.interface';
 import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interface';
@@ -72,9 +73,11 @@ export class Client {
   }
 
   // Must login first
-  async replacePrice(placedOrder: PlacedOrder, price: number): Promise<ReplaceOrderResponse> {
+  async replacePrice(placedOrder: PlacedOrder, price: number | PriceFlag): Promise<ReplaceOrderResponse> {
     const order = placedOrder.toObject();
-    const response = this.sdk.modifyPrice(order, price)
+    const response = (typeof price === 'number')
+      ? this.sdk.modifyPrice(order, price, PriceFlag.Limit)
+      : this.sdk.modifyPrice(order, null, price);
     const parsed = JSON.parse(response) as ParsedReplaceOrderResponse;
     return parsed.data;
   }
@@ -93,7 +96,7 @@ export class Client {
   }
 
   // Must login first
-  async replaceOrder(placedOrder: PlacedOrder, options: { price?: number, quantity?: number }): Promise<ReplaceOrderResponse> {
+  async replaceOrder(placedOrder: PlacedOrder, options: { price?: number | PriceFlag, quantity?: number }): Promise<ReplaceOrderResponse> {
     if (!!(options && options.price) !== !!(options && options.quantity)) {
       /* istanbul ignore else */
       if (options.price) return this.replacePrice(placedOrder, options.price);

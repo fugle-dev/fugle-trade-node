@@ -5,13 +5,12 @@ import { Order } from '../src/order';
 import { PlacedOrder } from '../src/placed-order';
 import { readConfigFile } from '../src/utils';
 import { ClientConfig } from '../src/interfaces';
+import { PriceFlag } from '../src/enums';
 
 jest.mock('@fugle/trade-core', () => {
   return {
     CoreSdk: function() {
       return {
-        getWsUrl: () => 'ws://localhost:3000',
-        getCertInfo: () => readFileSync('./test/fixtures/response-cert-info.txt').toString(),
         login: jest.fn(),
         order: () => readFileSync('./test/fixtures/response-place-order.txt').toString(),
         modifyVolume: () => readFileSync('./test/fixtures/response-replace-order.txt').toString(),
@@ -19,9 +18,14 @@ jest.mock('@fugle/trade-core', () => {
         getOrderResults: () => readFileSync('./test/fixtures/response-orders.txt').toString(),
         getTransactions: () => readFileSync('./test/fixtures/response-transactions.txt').toString(),
         getInventories: () => readFileSync('./test/fixtures/response-inventories.txt').toString(),
-        getMachineTime: () => readFileSync('./test/fixtures/response-machine-time.txt').toString(),
         getSettlements: () => readFileSync('./test/fixtures/response-settlements.txt').toString(),
+        getBalance: () => readFileSync('./test/fixtures/response-balance.txt').toString(),
+        getTradeStatus:  () => readFileSync('./test/fixtures/response-trade-status.txt').toString(),
+        getMarketStatus: () => readFileSync('./test/fixtures/response-market-status.txt').toString(),
         getKeyInfo: () => readFileSync('./test/fixtures/response-key-info.txt').toString(),
+        getCertInfo: () => readFileSync('./test/fixtures/response-cert-info.txt').toString(),
+        getMachineTime: () => readFileSync('./test/fixtures/response-machine-time.txt').toString(),
+        getWsUrl: () => 'ws://localhost:3000',
         getVolumePerUnit: () => 1000,
       };
     },
@@ -113,6 +117,30 @@ describe('Client', () => {
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
       expect(response).toEqual(parsed.data);
+    });
+
+    it('should replace order to change price by limit price', async () => {
+      const client = new Client(config);
+      await client.login();
+      client.sdk.modifyPrice = jest.fn(() => readFileSync('./test/fixtures/response-replace-order.txt').toString());
+      const [ order ] = await client.getOrders();
+      const response = await client.replacePrice(order, 140);
+      const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
+      const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed.data);
+      expect(client.sdk.modifyPrice).toBeCalledWith(order.toObject(), 140, PriceFlag.Limit)
+    });
+
+    it('should replace order to change price by price flag', async () => {
+      const client = new Client(config);
+      await client.login();
+      client.sdk.modifyPrice = jest.fn(() => readFileSync('./test/fixtures/response-replace-order.txt').toString());
+      const [ order ] = await client.getOrders();
+      const response = await client.replacePrice(order, PriceFlag.Market);
+      const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
+      const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed.data);
+      expect(client.sdk.modifyPrice).toBeCalledWith(order.toObject(), null, PriceFlag.Market)
     });
   });
 
@@ -256,6 +284,36 @@ describe('Client', () => {
       const response = await client.getCertInfo();
       const data = readFileSync('./test/fixtures/response-cert-info.txt').toString();
       const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed);
+    });
+  });
+
+  describe('.getBalance()', () => {
+    it('should get parsed certificate info', async () => {
+      const client = new Client(config);
+      const response = await client.getBalance();
+      const data = readFileSync('./test/fixtures/response-balance.txt').toString();
+      const parsed = JSON.parse(data).data;
+      expect(response).toEqual(parsed);
+    });
+  });
+
+  describe('.getMarketStatus()', () => {
+    it('should get parsed certificate info', async () => {
+      const client = new Client(config);
+      const response = await client.getMarketStatus();
+      const data = readFileSync('./test/fixtures/response-market-status.txt').toString();
+      const parsed = JSON.parse(data).data;
+      expect(response).toEqual(parsed);
+    });
+  });
+
+  describe('.getTradeStatus()', () => {
+    it('should get parsed certificate info', async () => {
+      const client = new Client(config);
+      const response = await client.getTradeStatus();
+      const data = readFileSync('./test/fixtures/response-trade-status.txt').toString();
+      const parsed = JSON.parse(data).data;
       expect(response).toEqual(parsed);
     });
   });

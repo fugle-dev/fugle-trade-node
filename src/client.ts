@@ -10,6 +10,7 @@ import { ParsedKeyInfo, KeyInfo } from './interfaces/parsed-key-info-interface';
 import { ParsedMachineTime } from './interfaces/parsed-machine-time.interface';
 import { ParsedOrderResult } from './interfaces/parsed-order-result.interface';
 import { ParsedSettlements, Settlement } from './interfaces/parsed-settlements.interface';
+import { ParsedBalanceStatus, BalanceStatus } from './interfaces/parsed-balance.interface';
 import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.interface';
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
@@ -145,6 +146,13 @@ export class Client {
     const response = this.sdk.getSettlements();
     const parsed = JSON.parse(response) as ParsedSettlements;
     return parsed.data.settlements;
+  }
+
+  // Must login first
+  async getBalance(): Promise<BalanceStatus> {
+    const response = this.sdk.getBalance();
+    const parsed = JSON.parse(response) as ParsedBalanceStatus;
+    return parsed.data;
   }
 
   // Must login first

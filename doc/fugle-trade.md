@@ -14,6 +14,9 @@
   - [fugle.getTransactions(range)](#fuglegettransactionsrange)
   - [fugle.getInventories()](#fuglegetinventories)
   - [fugle.getSettlements()](#fuglegetsettlements)
+  - [fugle.getBalance()](#fuglegetbalance)
+  - [fugle.getTradeStatus()](#fuglegettradestatus)
+  - [fugle.getMarketStatus()](#fuglegetmarketstatus)
   - [fugle.getKeyInfo()](#fuglegetkeyinfo)
   - [fugle.getMachineTime()](#fuglegetmachinetime)
   - [fugle.getCertInfo()](#fuglegetcertinfo)
@@ -83,7 +86,7 @@ Place an order for the logged in account.
 
 ### `fugle.replacePrice(order, price)`
 
-- `order` {PlacedOrder} The working order to be replaced.
+- `order` {PlacedOrder | Order.PriceFlag} The working order to be replaced.
 - `price` {number} The price of replace.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
@@ -101,7 +104,7 @@ Replace the order to change quantity for the logged in account.
 
 - `order` {PlacedOrder} The working order to be replaced.
 - `options` {Object} Set of configurable options to replace the order.
-  - `price` {number} The price of replace.
+  - `price` {number | Order.PriceFlag} The price of replace.
   - `quantity` {number} The quantity of replace.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
@@ -138,6 +141,24 @@ Gets inventories of the logged account.
 - Returns: {Promise} Fulfills with {Settlement[]} upon success.
 
 Gets incoming settlements of the logged account.
+
+### `fugle.getBalance()`
+
+- Returns: {Promise} Fulfills with an {BalanceStatus} upon success.
+
+Gets bank account balance of the logged account.
+
+### `fugle.getTradeStatus()`
+
+- Returns: {Promise} Fulfills with an {TradeStatus} upon success.
+
+Gets trading quota and margin transaction information of the logged account.
+
+### `fugle.getMarketStatus()`
+
+- Returns: {Promise} Fulfills with an {MarketStatus} upon success.
+
+Gets market open status.
 
 ### `fugle.getKeyInfo()`
 

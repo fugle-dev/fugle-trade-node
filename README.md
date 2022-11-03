@@ -108,6 +108,15 @@ const inventories = await fugle.getInventories();
 
 // Retrieve incoming settlements
 const settlements = await fugle.getSettlements();
+
+// Retrieve bank account balance
+const balance = await fugle.getBalance();
+
+// Retrieve trading quota and margin transaction information
+const tradeStatus = await fugle.getTradeStatus();
+
+// Retrieve market open status
+const marketStatus = await fugle.getMarketStatus();
 ```
 
 When you want to log in with another account, or need to reset your certificate password, please log out first:

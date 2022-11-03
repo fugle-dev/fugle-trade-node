@@ -107,6 +107,15 @@ const inventories = await fugle.getInventories();
 
 // 取得交割資訊
 const settlements = await fugle.getSettlements();
+
+// 取得交割資訊
+const balance = await fugle.getBalance();
+
+// 取得帳戶交易權限
+const tradeStatus = await fugle.getTradeStatus();
+
+// 取得市場開盤狀態
+const marketStatus = await fugle.getMarketStatus();
 ```
 
 當您想使用其他帳號登入，或需要重置密碼時，請記得先登出：

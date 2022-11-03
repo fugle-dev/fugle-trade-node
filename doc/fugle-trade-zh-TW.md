@@ -14,6 +14,9 @@
   - [fugle.getTransactions(range)](#fuglegettransactionsrange)
   - [fugle.getInventories()](#fuglegetinventories)
   - [fugle.getSettlements()](#fuglegetsettlements)
+  - [fugle.getBalance()](#fuglegetbalance)
+  - [fugle.getTradeStatus()](#fuglegettradestatus)
+  - [fugle.getMarketStatus()](#fuglegetmarketstatus)
   - [fugle.getKeyInfo()](#fuglegetkeyinfo)
   - [fugle.getMachineTime()](#fuglegetmachinetime)
   - [fugle.getCertInfo()](#fuglegetcertinfo)
@@ -86,7 +89,7 @@
 ### `fugle.replacePrice(order, price)`
 
 - `order` {PlacedOrder} 要更改的進行中委託單。
-- `price` {number} 更改的價格。
+- `price` {number | Order.PriceFlag} 更改的價格。
 - 回傳: {Promise} 成功時將使用 {ReplaceOrderResponse} 履行。
 
 更改登入帳號的進行中委託單的價格。
@@ -103,7 +106,7 @@
 
 - `order` {PlacedOrder} 要更改的進行中委託單。
 - `options` {Object} 設置可配置的選項來更改委託單。
-  - `price` {number} 更改的價格。
+  - `price` {number | Order.PriceFlag} 更改的價格。
   - `quantity` {number} 更改的數量。
 - 回傳: {Promise} 成功時將使用 {ReplaceOrderResponse} 履行。
 
@@ -140,6 +143,24 @@
 - 回傳: {Promise} 成功時將使用 {Settlement[]} 履行。
 
 取得登入帳號的交割資訊。
+
+### `fugle.getBalance()`
+
+- 回傳: {Promise} 成功時將使用 {BalanceStatus} 履行。
+
+取得登入帳號的銀行帳戶餘額。
+
+### `fugle.getTradeStatus()`
+
+- 回傳: {Promise} 成功時將使用 {TradeStatus} 履行。
+
+取得登入帳號的交易額度以及信用交易等資訊。
+
+### `fugle.getMarketStatus()`
+
+- 回傳: {Promise} 成功時將使用 {MarketStatus} 履行。
+
+取得市場開盤狀態。
 
 ### `fugle.getKeyInfo()`
 

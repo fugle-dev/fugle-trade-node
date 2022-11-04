@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/fugle-dev/fugle-trade-node/compare/v0.3.1...v0.4.0) (2022-11-04)
+
+
+### Features
+
+* support for getting available balance of the logged in account ([6e1fedf](https://github.com/fugle-dev/fugle-trade-node/commit/6e1fedf3b2e0de1319169ca5b7cfca5a6b7f6939))
+* support for getting stock market status ([9f0dfc2](https://github.com/fugle-dev/fugle-trade-node/commit/9f0dfc20daebe7c432b5b2f668cab0f35ef87b76))
+* support for getting trade status of the logged in account ([085b3e7](https://github.com/fugle-dev/fugle-trade-node/commit/085b3e72a6e946474b0011cab23b237397a81771))
+* support for replacing price by PriceFlag ([acb819b](https://github.com/fugle-dev/fugle-trade-node/commit/acb819b5fa6d13a7e51be78870b7490f7a4e39a5))
+
+
+### Bug Fixes
+
+* remove the trade type of DayTradeSell as it is not useful ([3abcaa7](https://github.com/fugle-dev/fugle-trade-node/commit/3abcaa7e72a17b71f3e6543ff1192347fbdbf80d))
+
 ### [0.3.1](https://github.com/fugle-dev/fugle-trade-node/compare/v0.3.0...v0.3.1) (2022-08-03)
 
 ## [0.3.0](https://github.com/fugle-dev/fugle-trade-node/compare/v0.2.1...v0.3.0) (2022-08-01)

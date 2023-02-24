@@ -17,6 +17,7 @@ jest.mock('@fugle/trade-core', () => {
         modifyPrice: () => readFileSync('./test/fixtures/response-replace-order.txt').toString(),
         getOrderResults: () => readFileSync('./test/fixtures/response-orders.txt').toString(),
         getTransactions: () => readFileSync('./test/fixtures/response-transactions.txt').toString(),
+        getTransactionsByDate: () => readFileSync('./test/fixtures/response-transactions.txt').toString(),
         getInventories: () => readFileSync('./test/fixtures/response-inventories.txt').toString(),
         getSettlements: () => readFileSync('./test/fixtures/response-settlements.txt').toString(),
         getBalance: () => readFileSync('./test/fixtures/response-balance.txt').toString(),
@@ -225,10 +226,37 @@ describe('Client', () => {
   });
 
   describe('.getTransactions()', () => {
-    it('should get parsed transactions', async () => {
+    it('should throw error when startDate and endDate options are given but duration is specified', async () => {
       const client = new Client(config);
       await client.login();
-      const response = await client.getTransactions('3d');
+      await expect(client.getTransactions({ duration: '3d', startDate: '2023-01-01', endDate: '2023-02-28' })).rejects.toThrow(TypeError);
+    });
+
+    it('should throw error when startDate is specified but endDate is missing', async () => {
+      const client = new Client(config);
+      await client.login();
+      await expect(client.getTransactions({ startDate: '2023-01-01' })).rejects.toThrow(TypeError);
+    });
+
+    it('should throw error when endDate is specified but startDate is missing', async () => {
+      const client = new Client(config);
+      await client.login();
+      await expect(client.getTransactions({ endDate: '2023-02-28' })).rejects.toThrow(TypeError);
+    });
+
+    it('should get parsed transactions by duration', async () => {
+      const client = new Client(config);
+      await client.login();
+      const response = await client.getTransactions({ duration: '3d'});
+      const data = readFileSync('./test/fixtures/response-transactions.txt').toString();
+      const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed.data.matSums);
+    });
+
+    it('should get parsed transactions by startDate and endDate options', async () => {
+      const client = new Client(config);
+      await client.login();
+      const response = await client.getTransactions({ startDate: '2023-01-01', endDate: '2023-02-28' });
       const data = readFileSync('./test/fixtures/response-transactions.txt').toString();
       const parsed = JSON.parse(data);
       expect(response).toEqual(parsed.data.matSums);

@@ -18,7 +18,7 @@ import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.inte
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
 
-type Range = '0d' | '3d' | '1m' | '3m';
+type Duration = '0d' | '3d' | '1m' | '3m';
 
 const SDK = Symbol('Client#sdk');
 const STREAMER = Symbol('Client#streamer');
@@ -133,8 +133,17 @@ export class Client {
   }
 
   // Must login first
-  async getTransactions(range: Range): Promise<Trade[]> {
-    const response = this.sdk.getTransactions(range);
+  async getTransactions(options: { duration?: Duration, startDate?: string, endDate?: string }): Promise<Trade[]> {
+    const { duration, startDate, endDate } = options;
+    if (duration && (startDate || endDate)) {
+      throw new TypeError('Cannot give "startDate" and "endDate" options when "duration" is specified');
+    }
+    if (!duration && (!startDate || !endDate)) {
+      throw new TypeError('Both "startDate" and "endDate" options should be given if "duration" is not specified');
+    }
+    const response = duration
+      ? this.sdk.getTransactions(duration)
+      : this.sdk.getTransactionsByDate(startDate as string, endDate as string);
     const parsed = JSON.parse(response) as ParsedTransactions;
     return parsed.data.matSums;
   }

@@ -11,7 +11,7 @@
   - [fugle.replaceQuantity(order, quantity)](#fuglereplacequantityorder-quantity)
   - [fugle.cancelOrder(order)](#fuglecancelorderorder)
   - [fugle.getOrders()](#fuglegetorders)
-  - [fugle.getTransactions(range)](#fuglegettransactionsrange)
+  - [fugle.getTransactions(options)](#fuglegettransactionsoptions)
   - [fugle.getInventories()](#fuglegetinventories)
   - [fugle.getSettlements()](#fuglegetsettlements)
   - [fugle.getBalance()](#fuglegetbalance)
@@ -125,9 +125,12 @@
 
 取得登入帳號的現有委託單。
 
-### `fugle.getTransactions(range)`
+### `fugle.getTransactions(options)`
 
-- `range` {string} 可用的範圍為 `0d` (日內), `3d` (近三日), `1m` (近一月) 或 `3m` (近三月)。
+- `options` {Object} 設置可配置的選項取得成交明細。
+  - `duration` {string} 可設定 `0d` (日內), `3d` (近三日), `1m` (近一月) 或 `3m` (近三月)。
+  - `startDate` {string} 開始日期。
+  - `endDate` {string} 結束日期。
 - 回傳 {Promise} 成功時將使用 {Trade[]} 履行。
 
 取得登入帳號的成交明細。

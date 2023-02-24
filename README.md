@@ -101,7 +101,7 @@ Once logged in, you can start placing orders and viewing account information:
 const orders = await fugle.getOrders();
 
 // Retrieve transaction details within three months
-const transactions = await fugle.getTransactions('3m');
+const transactions = await fugle.getTransactions({ duration: '3m' });
 
 // Retrieve all inventories in your account
 const inventories = await fugle.getInventories();

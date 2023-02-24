@@ -100,7 +100,7 @@ await fugle.login();
 const orders = await fugle.getOrders();
 
 // 取得三個月內的交易明細
-const transactions = await fugle.getTransactions('3m');
+const transactions = await fugle.getTransactions({ duration: '3m' });
 
 // 取得帳戶庫存
 const inventories = await fugle.getInventories();

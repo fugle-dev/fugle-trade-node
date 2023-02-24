@@ -11,7 +11,7 @@
   - [fugle.replaceQuantity(order, quantity)](#fuglereplacequantityorder-quantity)
   - [fugle.cancelOrder(order)](#fuglecancelorderorder)
   - [fugle.getOrders()](#fuglegetorders)
-  - [fugle.getTransactions(range)](#fuglegettransactionsrange)
+  - [fugle.getTransactions(options)](#fuglegettransactionsoptions)
   - [fugle.getInventories()](#fuglegetinventories)
   - [fugle.getSettlements()](#fuglegetsettlements)
   - [fugle.getBalance()](#fuglegetbalance)
@@ -123,9 +123,12 @@ Cancel the order for the logged in account.
 
 Gets existing orders of the logged account.
 
-### `fugle.getTransactions(range)`
+### `fugle.getTransactions(options)`
 
-- `range` {string} Available range is `0d`, `3d`, `1m` or `3m`. 
+- `options` {Object} Set of configurable options to get transactions.
+  - `duration` {string} Available duration is `0d`, `3d`, `1m` or `3m`. 
+  - `startDate` {string} The start date.
+  - `endDate` {string} The end date.
 - Returns: {Promise} Fulfills with {Trade[]} upon success.
 
 Gets transactions of the logged account.

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/fugle-dev/fugle-trade-node/compare/v0.4.1...v0.5.0) (2023-02-24)
+
+
+### Features
+
+* add support for querying transactions by given start date and end date ([87938fc](https://github.com/fugle-dev/fugle-trade-node/commit/87938fc8f0760969c903d426ad500c8c0e4e983d))
+
 ### [0.4.1](https://github.com/fugle-dev/fugle-trade-node/compare/v0.4.0...v0.4.1) (2023-02-24)
 
 ## [0.4.0](https://github.com/fugle-dev/fugle-trade-node/compare/v0.3.1...v0.4.0) (2022-11-04)

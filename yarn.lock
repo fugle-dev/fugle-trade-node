@@ -516,47 +516,47 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fugle/trade-core-darwin-arm64@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-arm64/-/trade-core-darwin-arm64-0.5.0.tgz#4461b0936b272ec0287a06b0fa673484e46dd267"
-  integrity sha512-ZBqZR00I4xO+gyia9f/5a+OBnBLpQSuUElbURrtLhFnVRlor/im+SaawMeiQh1kAS0EhLlaUEvSOp+ltkcacGQ==
+"@fugle/trade-core-darwin-arm64@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-arm64/-/trade-core-darwin-arm64-1.0.1.tgz#1b855e7e97692c1435b52088e79c85c4386eefa2"
+  integrity sha512-Mk/gHklzT33yDM5/pCHEH9ihKrWgOLOQtge7nbFz+/bTQv92M+n6dIKA99VUPH3dIU0WgPnTMsyrQ60oYSZ/yg==
 
-"@fugle/trade-core-darwin-x64@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-x64/-/trade-core-darwin-x64-0.5.0.tgz#c19419ebbd5db5dc8f4651fef340609dbd22505f"
-  integrity sha512-aSgH4oB2dbLJXq7g996K1QvpkukXvKVWW3h4OWg7/yfV8b/ZioOmHbIs8XtcTJvG8ZUTNJ0GX9A6ajzaylOMlw==
+"@fugle/trade-core-darwin-x64@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-x64/-/trade-core-darwin-x64-1.0.1.tgz#6aee555368fce89dd2f93628cc99d4bca46bc07c"
+  integrity sha512-6at5HPmBKjHnHgAyJjq2fI/f+PecBh/1YyUJKbzbgwavN5uvviZZLJ56FQM+4yHWAPylb5aL2qYksAHJH98SNw==
 
-"@fugle/trade-core-linux-arm64-gnu@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-arm64-gnu/-/trade-core-linux-arm64-gnu-0.5.0.tgz#9c10fa9e4d84bac31a18fab249627f3b6b8bdd5d"
-  integrity sha512-KYdrwQNhPbppVSaTSy2tMCcmt159JONlJUB8jLO3WyHM5RhcZcumqMfSZlLmu4Cb2tgXpL1aPU9z/DU9B+VbwA==
+"@fugle/trade-core-linux-arm64-gnu@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-arm64-gnu/-/trade-core-linux-arm64-gnu-1.0.1.tgz#35a8e70ab789bf47228dbb31ce4489cb7de7e5de"
+  integrity sha512-lU1Mh/B04Bh13HbAEwJ75Mg0ylmsshjQOT6tzrb8/GaTSK8KBq7eR7fxWKalQaxFwaTcWJCqgZhCKOwN005EAg==
 
-"@fugle/trade-core-linux-x64-gnu@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-x64-gnu/-/trade-core-linux-x64-gnu-0.5.0.tgz#ee16edcb0ead49a4d5faf567e0aa8d70d3a2f23a"
-  integrity sha512-haIfeIA2NSqUuFvn2tGCl2JAS6wKtfT0mwnJH2VLz7SNBZoitoM075q3VwJ+kuBTRHqVGsiEMwft8LKJtVI/Ig==
+"@fugle/trade-core-linux-x64-gnu@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-x64-gnu/-/trade-core-linux-x64-gnu-1.0.1.tgz#702679b6f639407d3207bacaf407f1f375f2e2c5"
+  integrity sha512-jkDbUilAlQXXlRa9tbCITyWtWDx0p8a7faFhOiy6HfbmUf+PO9Bpvs7Ns1piQUZeyzYv8Yr/1tzV0YSJuej5+w==
 
-"@fugle/trade-core-linux-x64-musl@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-x64-musl/-/trade-core-linux-x64-musl-0.5.0.tgz#164a9e0f2dcc68b4a5a4209c44f7ba4a2678971a"
-  integrity sha512-9Cmrzy6qAkIjXDqodQFdu2kwKen9KpKys6mcH7uXDCfNB9afj3UIFJOFJ0q513im5fPd5B+L8NqLnGcv1VoEUA==
+"@fugle/trade-core-linux-x64-musl@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-linux-x64-musl/-/trade-core-linux-x64-musl-1.0.1.tgz#52075489f451540076d805cfcc2b5eee94abc248"
+  integrity sha512-KdfJBYTtwNSmzm0ToSG10yJHh973Xo8C/wGl4qS12uqhPARzTzAHekA1kfdZt4nThCKO1uAxsEMYwh2pE/HiiQ==
 
-"@fugle/trade-core-win32-x64-msvc@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core-win32-x64-msvc/-/trade-core-win32-x64-msvc-0.5.0.tgz#24f495712f3dca9e25e35f63ba1d3d983c6e57b5"
-  integrity sha512-GYgxY561Lmh50EcbWd6g46b1QsJFnRwHYNGnDeBn4ZvEwSNYzjf/GhVdq7ZseFTGjUnVSOkSbOhuj7161AsgQw==
+"@fugle/trade-core-win32-x64-msvc@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core-win32-x64-msvc/-/trade-core-win32-x64-msvc-1.0.1.tgz#7292598268354b1af7edc4334cbd49842f4e2cdc"
+  integrity sha512-Cy8PSBj7d7S/8M1jsQnhQpV4SO+2Nj5OIJFr1DROJzzI6UnYMVEy8AEejCNKvXi0tWuSTDYHdWVwk6RhTM+Yeg==
 
-"@fugle/trade-core@~0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fugle/trade-core/-/trade-core-0.5.0.tgz#3a3f04accb90b7d9a897da1fecb5e99048de2c7d"
-  integrity sha512-NVwYd8CtlvWo8HcVak/Xy8+tMLtWWnDhkhfPiiuoEynwFjlLyUgxEanJW5WgzhGtGCUaMwHJIVaUeDdzwTOFHQ==
+"@fugle/trade-core@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@fugle/trade-core/-/trade-core-1.0.1.tgz#3ba836c1bd291c92367aa183c8dafacb456af1e1"
+  integrity sha512-Mon1iVxxtWxFGLYSGjV7dy6z93/OS/SXIOw6CCdCzNQr0DJqvuUBF2P3QdwiHlPVKfeuoTVTxNDQlsp5Da4qWw==
   optionalDependencies:
-    "@fugle/trade-core-darwin-arm64" "0.5.0"
-    "@fugle/trade-core-darwin-x64" "0.5.0"
-    "@fugle/trade-core-linux-arm64-gnu" "0.5.0"
-    "@fugle/trade-core-linux-x64-gnu" "0.5.0"
-    "@fugle/trade-core-linux-x64-musl" "0.5.0"
-    "@fugle/trade-core-win32-x64-msvc" "0.5.0"
+    "@fugle/trade-core-darwin-arm64" "1.0.1"
+    "@fugle/trade-core-darwin-x64" "1.0.1"
+    "@fugle/trade-core-linux-arm64-gnu" "1.0.1"
+    "@fugle/trade-core-linux-x64-gnu" "1.0.1"
+    "@fugle/trade-core-linux-x64-musl" "1.0.1"
+    "@fugle/trade-core-win32-x64-msvc" "1.0.1"
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"

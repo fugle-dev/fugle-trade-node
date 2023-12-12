@@ -4,3 +4,4 @@ export * from './price-flag.enum';
 export * from './bs-flag.enum';
 export * from './trade-type.enum';
 export * from './message-kind.enum';
+export * from './market.enum';

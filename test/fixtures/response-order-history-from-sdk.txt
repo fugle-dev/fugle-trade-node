@@ -1,0 +1,27 @@
+{
+    "data": {
+        "orderResultHistory": [
+            {
+                "ackDate": "20231013",
+                "ordDate": "20231013",
+                "ordTime": "16132316",
+                "apCode": "1",
+                "ordNo": "",
+                "stockNo": "2884",
+                "market": "H",
+                "buySell": "B",
+                "trade": "0",
+                "odPrice": "25.0",
+                "orgQty": "1",
+                "orgQtyShare": 1000,
+                "matQty": "0",
+                "matQtyShare": 0,
+                "celQty": "0",
+                "celQtyShare": "0",
+                "celable": "1",
+                "avgPrice": "0",
+                "bsFlag": "R"
+            }
+        ]
+    }
+}

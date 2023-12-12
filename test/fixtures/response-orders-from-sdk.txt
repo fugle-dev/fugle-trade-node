@@ -2,7 +2,6 @@
   "data": {
     "orderResults": [
       {
-        "market": "T",
         "workDate": "20220314",
         "ordDate": "20220311",
         "ordTime": "161323716",

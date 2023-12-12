@@ -2,7 +2,7 @@ import { CoreSdk } from '@fugle/trade-core';
 import { Streamer } from './streamer';
 import { Order } from './order';
 import { PlacedOrder } from './placed-order';
-import { PriceFlag } from './enums';
+import { PriceFlag, Market } from './enums';
 import { loadCredentials, removeCredentials } from './utils';
 import { ClientConfig } from './interfaces/client-config.interface';
 import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interface';
@@ -17,6 +17,7 @@ import { ParsedMarketStatus, MarketStatus } from './interfaces/parsed-market-sta
 import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.interface';
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
+import { ParsedOrderResultHistory } from './interfaces/parsed-order-result-history.interface';
 
 type Duration = '0d' | '3d' | '1m' | '3m';
 
@@ -110,26 +111,15 @@ export class Client {
   async getOrders(): Promise<PlacedOrder[]> {
     const response = this.sdk.getOrderResults();
     const parsed = JSON.parse(response) as ParsedOrderResult;
-    return parsed.data.orderResults
-      .map(order => {
-        const { apCode, stockNo } = order;
-        const unit = this.sdk.getVolumePerUnit(stockNo);
-        const result = { ...order };
-        if(apCode === '4' || apCode === '5') {
-          result.orgQtyShare = result.orgQty;
-          result.matQtyShare = result.matQty;
-          result.celQtyShare = result.celQty;
-          result.orgQty = (Number(result.orgQty) / unit).toString();
-          result.matQty = (Number(result.matQty) / unit).toString();
-          result.celQty = (Number(result.celQty) / unit).toString();
-        } else {
-          result.orgQtyShare = (Number(result.orgQty) * unit).toString();
-          result.matQtyShare = (Number(result.matQty) * unit).toString();
-          result.celQtyShare = (Number(result.celQty) * unit).toString();
-        }
-        return result;
-      })
-      .map(order => new PlacedOrder(order));
+    return parsed.data.orderResults.map(order => new PlacedOrder({ ...order }));
+  }
+
+  async getHistoricalOrders(options: { startDate: string, endDate: string }): Promise<PlacedOrder[]> {
+    const market: Market = Market.All;
+    const { startDate, endDate } = options;
+    const response = this.sdk.getOrderResultHistory(market, startDate, endDate);
+    const parsed = JSON.parse(response) as ParsedOrderResultHistory;
+    return parsed.data.orderResultHistory.map(order => new PlacedOrder({ ...order }));
   }
 
   // Must login first

@@ -9,19 +9,20 @@ import { PriceFlag } from '../src/enums';
 
 jest.mock('@fugle/trade-core', () => {
   return {
-    CoreSdk: function() {
+    CoreSdk: function () {
       return {
         login: jest.fn(),
         order: () => readFileSync('./test/fixtures/response-place-order.txt').toString(),
         modifyVolume: () => readFileSync('./test/fixtures/response-replace-order.txt').toString(),
         modifyPrice: () => readFileSync('./test/fixtures/response-replace-order.txt').toString(),
-        getOrderResults: () => readFileSync('./test/fixtures/response-orders.txt').toString(),
+        getOrderResults: () => readFileSync('./test/fixtures/response-orders-from-sdk.txt').toString(),
+        getOrderResultHistory: () => readFileSync('./test/fixtures/response-order-history-from-sdk.txt').toString(),
         getTransactions: () => readFileSync('./test/fixtures/response-transactions.txt').toString(),
         getTransactionsByDate: () => readFileSync('./test/fixtures/response-transactions.txt').toString(),
         getInventories: () => readFileSync('./test/fixtures/response-inventories.txt').toString(),
         getSettlements: () => readFileSync('./test/fixtures/response-settlements.txt').toString(),
         getBalance: () => readFileSync('./test/fixtures/response-balance.txt').toString(),
-        getTradeStatus:  () => readFileSync('./test/fixtures/response-trade-status.txt').toString(),
+        getTradeStatus: () => readFileSync('./test/fixtures/response-trade-status.txt').toString(),
         getMarketStatus: () => readFileSync('./test/fixtures/response-market-status.txt').toString(),
         getKeyInfo: () => readFileSync('./test/fixtures/response-key-info.txt').toString(),
         getCertInfo: () => readFileSync('./test/fixtures/response-cert-info.txt').toString(),
@@ -103,7 +104,7 @@ describe('Client', () => {
     it('should replace order to change price', async () => {
       const client = new Client(config);
       await client.login();
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       const response = await client.replacePrice(order, 140);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
@@ -113,7 +114,7 @@ describe('Client', () => {
     it('should replace preorder to change price', async () => {
       const client = new Client(config);
       await client.login();
-      const [ preorder ] = await client.getOrders();
+      const [preorder] = await client.getOrders();
       const response = await client.replacePrice(preorder, 140);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
@@ -124,7 +125,7 @@ describe('Client', () => {
       const client = new Client(config);
       await client.login();
       client.sdk.modifyPrice = jest.fn(() => readFileSync('./test/fixtures/response-replace-order.txt').toString());
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       const response = await client.replacePrice(order, 140);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
@@ -136,7 +137,7 @@ describe('Client', () => {
       const client = new Client(config);
       await client.login();
       client.sdk.modifyPrice = jest.fn(() => readFileSync('./test/fixtures/response-replace-order.txt').toString());
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       const response = await client.replacePrice(order, PriceFlag.Market);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
@@ -149,7 +150,7 @@ describe('Client', () => {
     it('should replace order to change quantity', async () => {
       const client = new Client(config);
       await client.login();
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       const response = await client.replaceQuantity(order, 1);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
@@ -159,7 +160,7 @@ describe('Client', () => {
     it('should replace preorder to change quantity', async () => {
       const client = new Client(config);
       await client.login();
-      const [ preorder ] = await client.getOrders();
+      const [preorder] = await client.getOrders();
       const response = await client.replaceQuantity(preorder, 1);
       const data = readFileSync('./test/fixtures/response-replace-order.txt').toString();
       const parsed = JSON.parse(data);
@@ -172,7 +173,7 @@ describe('Client', () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
       await client.login();
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       await client.cancelOrder(order);
       expect(client.replaceQuantity).toBeCalledWith(order, 0);
     });
@@ -183,7 +184,7 @@ describe('Client', () => {
       const client = new Client(config);
       client.replacePrice = jest.fn();
       await client.login();
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       await client.replaceOrder(order, { price: 140 });
       expect(client.replacePrice).toBeCalledWith(order, 140);
     });
@@ -192,7 +193,7 @@ describe('Client', () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
       await client.login();
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       await client.replaceOrder(order, { quantity: 1 });
       expect(client.replaceQuantity).toBeCalledWith(order, 1);
     });
@@ -201,7 +202,7 @@ describe('Client', () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
       await client.login();
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       await expect(client.replaceOrder(order, {})).rejects.toThrow(TypeError);
     });
 
@@ -209,7 +210,7 @@ describe('Client', () => {
       const client = new Client(config);
       client.replaceQuantity = jest.fn();
       await client.login();
-      const [ order ] = await client.getOrders();
+      const [order] = await client.getOrders();
       await expect(client.replaceOrder(order, { price: 140, quantity: 1 })).rejects.toThrow(TypeError);
     });
   });
@@ -222,6 +223,17 @@ describe('Client', () => {
       const data = readFileSync('./test/fixtures/response-orders-from-sdk.txt').toString();
       const parsed = JSON.parse(data);
       expect(response).toEqual(parsed.data.orderResults.map((order: Record<string, string>) => new PlacedOrder(order)));
+    });
+  });
+
+  describe('.getHistoryOrders()', () => {
+    it('should get parsed order results', async () => {
+      const client = new Client(config);
+      await client.login();
+      const response = await client.getHistoryOrders({ startDate: '2023-01-01', endDate: '2023-01-31' });
+      const data = readFileSync('./test/fixtures/response-order-history-from-sdk.txt').toString();
+      const parsed = JSON.parse(data);
+      expect(response).toEqual(parsed.data.orderResultHistory.map((order: Record<string, string>) => new PlacedOrder(order)));
     });
   });
 
@@ -247,7 +259,7 @@ describe('Client', () => {
     it('should get parsed transactions by duration', async () => {
       const client = new Client(config);
       await client.login();
-      const response = await client.getTransactions({ duration: '3d'});
+      const response = await client.getTransactions({ duration: '3d' });
       const data = readFileSync('./test/fixtures/response-transactions.txt').toString();
       const parsed = JSON.parse(data);
       expect(response).toEqual(parsed.data.matSums);

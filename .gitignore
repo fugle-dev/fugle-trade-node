@@ -4,3 +4,5 @@ coverage
 .idea
 .vscode
 .DS_Store
+example/*.ini
+example/**.p12

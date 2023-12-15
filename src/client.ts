@@ -110,7 +110,6 @@ export class Client {
   // Must login first
   async getOrders(): Promise<PlacedOrder[]> {
     const response = this.sdk.getOrderResults();
-    console.log("data from sdk:" + response);
     const parsed = JSON.parse(response) as ParsedOrderResult;
     if (parsed.data.orderResults.length === 0) {
       return [];
@@ -123,7 +122,6 @@ export class Client {
     const market: Market = Market.All;
     const { startDate, endDate } = options;
     const response = this.sdk.getOrderResultHistory(market, startDate, endDate);
-    console.log("data from sdk:" + response);
     const parsed = JSON.parse(response) as ParsedOrderResultHistory;
     return parsed.data.orderResultHistory.map(order => new PlacedOrder({ ...order }));
   }

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/fugle-dev/fugle-trade-node/compare/v1.0.0...v2.0.0) (2023-12-19)
+
+
+### Features
+
+* add support for querying historical orders ([fd9eb0e](https://github.com/fugle-dev/fugle-trade-node/commit/fd9eb0e8cb92e29d05dd6084318fbf4b28836248))
+* upgrade @fugle/trade-core to v2.0 ([9fcf5f3](https://github.com/fugle-dev/fugle-trade-node/commit/9fcf5f388eb9ac75f0a3bdd8423ca2804545ddfe))
+
 ## [1.0.0](https://github.com/fugle-dev/fugle-trade-node/compare/v0.5.0...v1.0.0) (2023-08-01)
 
 

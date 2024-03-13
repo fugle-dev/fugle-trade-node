@@ -75,7 +75,9 @@ export class Client {
 
   // Must login first
   async replacePrice(placedOrder: PlacedOrder, price: number | PriceFlag): Promise<ReplaceOrderResponse> {
-    const order = placedOrder.toObject();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const unit = this.sdk.getVolumePerUnit(placedOrder.payload.stockNo!);
+    const order = placedOrder.toModifiedObject(unit);
     const response = (typeof price === 'number')
       ? this.sdk.modifyPrice(order, price, PriceFlag.Limit)
       : this.sdk.modifyPrice(order, null, price);
@@ -85,7 +87,9 @@ export class Client {
 
   // Must login first
   async replaceQuantity(placedOrder: PlacedOrder, quantity: number): Promise<ReplaceOrderResponse> {
-    const order = placedOrder.toObject();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const unit = this.sdk.getVolumePerUnit(placedOrder.payload.stockNo!);
+    const order = placedOrder.toModifiedObject(unit);
     const response = this.sdk.modifyVolume(order, quantity);
     const parsed = JSON.parse(response) as ParsedReplaceOrderResponse;
     return parsed.data;

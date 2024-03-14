@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/fugle-dev/fugle-trade-node/compare/v2.0.0...v2.0.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* correct trading unit conversion ([#9](https://github.com/fugle-dev/fugle-trade-node/issues/9)) ([1fc078c](https://github.com/fugle-dev/fugle-trade-node/commit/1fc078c2357e0ef45bac1222e34ec47ed158fe2b))
+
 ## [2.0.0](https://github.com/fugle-dev/fugle-trade-node/compare/v1.0.0...v2.0.0) (2023-12-19)
 
 

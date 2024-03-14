@@ -84,10 +84,8 @@ describe('PlacedOrder', () => {
         bsFlag: 'R',
       });
     });
-  });
 
-  describe('.toModifiedObject()', () => {
-    it('should return ModifiedObject', () => {
+    it('should return OrderObject with unit option', () => {
       const placedOrder = new PlacedOrder({
         workDate: '20220222',
         ordDate: '20220222',
@@ -111,7 +109,7 @@ describe('PlacedOrder', () => {
         bsFlag: 'R',
       });
 
-      expect(placedOrder.toModifiedObject(1000)).toEqual({
+      expect(placedOrder.toObject({ unit: 1000 })).toEqual({
         workDate: '20220222',
         ordDate: '20220222',
         ordTime: '130000000',
@@ -135,5 +133,4 @@ describe('PlacedOrder', () => {
       });
     });
   });
-  
 });

@@ -39,26 +39,19 @@ export class PlacedOrder {
     return this[PAYLOAD];
   }
 
-  toObject(): OrderResult {
-    return Object
-      .entries(this.payload)
-      .reduce((object, [key, value]) =>
-        ({ ...object, [key]: String(value) }),
-        {} as OrderResult,
-      );
-  }
-
-  toModifiedObject(unit: number): OrderResult {
+  toObject(options?: { unit: number }): OrderResult {
     return Object.entries(this.payload).reduce((object, [key, value]) => {
       if (
-        key.endsWith("Qty") &&
+        options?.unit &&
+        key.endsWith('Qty') &&
         this.payload.apCode &&
         [ApCode.Odd, ApCode.Emg, ApCode.IntradayOdd].includes(
           this.payload.apCode
         )
-      )
-        return { ...object, [key]: String(Math.floor(value * unit)) };
+      ) {
+        return { ...object, [key]: String(Math.floor(value * options.unit)) };
+      }
       return { ...object, [key]: String(value) };
-    }, {} as OrderResult);
+    }, {} as OrderResult)
   }
 }

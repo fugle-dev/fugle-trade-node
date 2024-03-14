@@ -47,4 +47,18 @@ export class PlacedOrder {
         {} as OrderResult,
       );
   }
+
+  toModifiedObject(unit: number): OrderResult {
+    return Object.entries(this.payload).reduce((object, [key, value]) => {
+      if (
+        key.endsWith("Qty") &&
+        this.payload.apCode &&
+        [ApCode.Odd, ApCode.Emg, ApCode.IntradayOdd].includes(
+          this.payload.apCode
+        )
+      )
+        return { ...object, [key]: String(Math.floor(value * unit)) };
+      return { ...object, [key]: String(value) };
+    }, {} as OrderResult);
+  }
 }

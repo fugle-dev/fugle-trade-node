@@ -85,4 +85,55 @@ describe('PlacedOrder', () => {
       });
     });
   });
+
+  describe('.toModifiedObject()', () => {
+    it('should return ModifiedObject', () => {
+      const placedOrder = new PlacedOrder({
+        workDate: '20220222',
+        ordDate: '20220222',
+        ordTime: '130000000',
+        ordStatus: '2',
+        ordNo: 'B9999',
+        preOrdNo: '',
+        stockNo: '0050',
+        buySell: 'B',
+        apCode: '5',
+        priceFlag: '0',
+        trade: '0',
+        odPrice: '140.0',
+        orgQty: '0.001',
+        matQty: '0',
+        celQty: '0',
+        celable: '2',
+        errCode: '00000000',
+        errMsg: '',
+        avgPrice: '0.0',
+        bsFlag: 'R',
+      });
+
+      expect(placedOrder.toModifiedObject(1000)).toEqual({
+        workDate: '20220222',
+        ordDate: '20220222',
+        ordTime: '130000000',
+        ordStatus: '2',
+        ordNo: 'B9999',
+        preOrdNo: '',
+        stockNo: '0050',
+        buySell: 'B',
+        apCode: '5',
+        priceFlag: '0',
+        trade: '0',
+        odPrice: '140',
+        orgQty: '1',
+        matQty: '0',
+        celQty: '0',
+        celable: '2',
+        errCode: '00000000',
+        errMsg: '',
+        avgPrice: '0',
+        bsFlag: 'R',
+      });
+    });
+  });
+  
 });

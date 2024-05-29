@@ -20,6 +20,7 @@ export interface StockDat {
   tTime: string;
   valueMkt: string;
   valueNow: string;
+  memo: string;
 }
 
 export interface Stock {

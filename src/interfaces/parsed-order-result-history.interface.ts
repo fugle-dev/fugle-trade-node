@@ -21,6 +21,7 @@ export interface OrderResultHistory {
   bsFlag: string;
   source?: string;
   market: string;
+  memo: string;
 }
 
 export interface ParsedOrderResultHistory {

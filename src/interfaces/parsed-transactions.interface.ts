@@ -18,6 +18,7 @@ export interface TradeDate {
   tax: string;
   taxG: string;
   trade: string;
+  memo: string;
 }
 
 export interface Trade {

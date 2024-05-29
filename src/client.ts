@@ -68,7 +68,7 @@ export class Client {
 
   // Must login first
   async placeOrder(order: Order): Promise<PlaceOrderResponse> {
-    const response = this.sdk.order(order.toObject());
+    const response = this.sdk.order(order.toObject(), order.payload.memo || '');
     const parsed = JSON.parse(response) as ParsedPlaceOrderResponse;
     return parsed.data;
   }

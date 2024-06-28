@@ -34,7 +34,8 @@
   },
   "homepage": "https://github.com/fugle-dev/fugle-trade-node#readme",
   "dependencies": {
-    "@fugle/trade-core": "^2.0.0",
+    "@fugle/trade-core": "^2.1.0",
+    "@fugle/trade-core-darwin-arm64": "^2.1.0",
     "ini": "^2.0.0",
     "inquirer": "^8.2.1",
     "keytar": "^7.9.0",

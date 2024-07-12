@@ -6,7 +6,7 @@ import { PriceFlag, Market } from './enums';
 import { loadCredentials, removeCredentials } from './utils';
 import { ClientConfig } from './interfaces/client-config.interface';
 import { ParsedCertInfo, CertInfo } from './interfaces/parsed-cert-info-interface';
-import { ParsedInventories, Stock } from './interfaces/parsed-inventories.interface';
+import { ParsedInventories, renameInventoriesMemoToUserDef, Stock } from './interfaces/parsed-inventories.interface';
 import { ParsedKeyInfo, KeyInfo } from './interfaces/parsed-key-info-interface';
 import { ParsedMachineTime } from './interfaces/parsed-machine-time.interface';
 import { ParsedOrderResult } from './interfaces/parsed-order-result.interface';
@@ -14,7 +14,7 @@ import { ParsedSettlements, Settlement } from './interfaces/parsed-settlements.i
 import { ParsedBalanceStatus, BalanceStatus } from './interfaces/parsed-balance.interface';
 import { ParsedTradeStatus, TradeStatus } from './interfaces/parsed-trade-status.interface';
 import { ParsedMarketStatus, MarketStatus } from './interfaces/parsed-market-status.interface';
-import { ParsedTransactions, Trade } from './interfaces/parsed-transactions.interface';
+import { ParsedTransactions, renameTransactionsMemoToUserDef, Trade } from './interfaces/parsed-transactions.interface';
 import { ParsedPlaceOrderResponse, PlaceOrderResponse } from './interfaces/parsed-place-order-response.interface';
 import { ParsedReplaceOrderResponse, ReplaceOrderResponse } from './interfaces/parsed-replace-order-response.interface';
 import { ParsedOrderResultHistory } from './interfaces/parsed-order-result-history.interface';
@@ -68,7 +68,7 @@ export class Client {
 
   // Must login first
   async placeOrder(order: Order): Promise<PlaceOrderResponse> {
-    const response = this.sdk.order(order.toObject(), order.payload.memo || '');
+    const response = this.sdk.order(order.toObject(), order.payload.userDef || '');
     const parsed = JSON.parse(response) as ParsedPlaceOrderResponse;
     return parsed.data;
   }
@@ -119,7 +119,7 @@ export class Client {
   async getHistoricalOrders(options: { startDate: string, endDate: string }): Promise<PlacedOrder[]> {
     const market: Market = Market.All;
     const { startDate, endDate } = options;
-    const response = this.sdk.getOrderResultHistory(market, startDate, endDate);
+    const response = this.sdk.getOrderResultHistory(startDate, endDate, market);
     const parsed = JSON.parse(response) as ParsedOrderResultHistory;
     return parsed.data.orderResultHistory.map(order => new PlacedOrder({ ...order }));
   }
@@ -136,14 +136,15 @@ export class Client {
     const response = duration
       ? this.sdk.getTransactions(duration)
       : this.sdk.getTransactionsByDate(startDate as string, endDate as string);
-    const parsed = JSON.parse(response) as ParsedTransactions;
+    // const parsed = JSON.parse(response) as ParsedTransactions;
+    const parsed = renameTransactionsMemoToUserDef(JSON.parse(response) as ParsedTransactions);
     return parsed.data.matSums;
   }
 
   // Must login first
   async getInventories(): Promise<Stock[]> {
     const response = this.sdk.getInventories();
-    const parsed = JSON.parse(response) as ParsedInventories;
+    const parsed = renameInventoriesMemoToUserDef(JSON.parse(response) as ParsedInventories);
     return parsed.data.stkSums;
   }
 

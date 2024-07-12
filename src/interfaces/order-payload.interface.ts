@@ -9,5 +9,5 @@ export interface OrderPayload {
   priceFlag?: PriceFlag;
   bsFlag?: BsFlag;
   trade?: TradeType;
-  memo?: string;
+  userDef?: string;
 }

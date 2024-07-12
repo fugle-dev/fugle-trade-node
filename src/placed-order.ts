@@ -32,7 +32,9 @@ export class PlacedOrder {
       ...(payload.stockNo && { stockNo: String(payload.stockNo) }),
       ...(payload.trade && { trade: String(payload.trade) as TradeType }),
       ...(payload.workDate && { workDate: String(payload.workDate) }),
+      ...(payload.memo && { userDef: String(payload.memo) })
     };
+    delete payload.memo;
   }
 
   get payload(): PlacedOrderPayload {

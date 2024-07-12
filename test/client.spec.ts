@@ -262,8 +262,19 @@ describe('Client', () => {
       const response = await client.getTransactions({ duration: '3d' });
       const data = readFileSync('./test/fixtures/response-transactions.txt').toString();
       const parsed = JSON.parse(data);
-      expect(response).toEqual(parsed.data.matSums);
+      const actual = renameMemoToUserDef(parsed);
+      expect(response).toEqual(actual.data.matSums);
     });
+
+    function renameMemoToUserDef(data: { data: { matSums: any[]; }; }) {
+      data.data.matSums.forEach(trade => {
+        trade.matDats.forEach((tradeDate: { userDef: any; memo: any; }) => {
+          tradeDate.userDef = tradeDate.memo;
+          delete tradeDate.memo;
+        });
+      });
+      return data;
+    }
 
     it('should get parsed transactions by startDate and endDate options', async () => {
       const client = new Client(config);
@@ -271,7 +282,8 @@ describe('Client', () => {
       const response = await client.getTransactions({ startDate: '2023-01-01', endDate: '2023-02-28' });
       const data = readFileSync('./test/fixtures/response-transactions.txt').toString();
       const parsed = JSON.parse(data);
-      expect(response).toEqual(parsed.data.matSums);
+      const actual = renameMemoToUserDef(parsed);
+      expect(response).toEqual(actual.data.matSums);
     });
   });
 
@@ -282,6 +294,12 @@ describe('Client', () => {
       const response = await client.getInventories();
       const data = readFileSync('./test/fixtures/response-inventories.txt').toString();
       const parsed = JSON.parse(data);
+      parsed.data.stkSums.forEach((stk: { stkDats: any[]; }) => {
+        stk.stkDats.forEach((dat: { userDef: any; memo: any; }) => {
+          dat.userDef = dat.memo;
+          delete dat.memo;
+        });
+      });
       expect(response).toEqual(parsed.data.stkSums);
     });
   });

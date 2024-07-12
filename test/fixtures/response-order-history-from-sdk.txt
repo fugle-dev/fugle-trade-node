@@ -20,7 +20,8 @@
                 "celQtyShare": "0",
                 "celable": "1",
                 "avgPrice": "0",
-                "bsFlag": "R"
+                "bsFlag": "R",
+                "memo": ""
             }
         ]
     }

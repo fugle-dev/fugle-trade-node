@@ -516,7 +516,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fugle/trade-core-darwin-arm64@2.1.0", "@fugle/trade-core-darwin-arm64@^2.1.0":
+"@fugle/trade-core-darwin-arm64@2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@fugle/trade-core-darwin-arm64/-/trade-core-darwin-arm64-2.1.0.tgz#f36479b5d82de7682b9498f7d1dd10beee299cf6"
   integrity sha512-/9NLSmXCKy/tYt5jpPwLK5Gb+Tnqm2hX6GBOxKR0kQcrozpE1L0AAUk7gRvDNdZlbgPshcKEdxCtWrkSzTHRvA==

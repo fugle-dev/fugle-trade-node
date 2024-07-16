@@ -22,6 +22,7 @@ export interface OrderResult {
   errMsg: string;
   avgPrice: string;
   bsFlag: string;
+  memo: string;
 }
 
 export interface ParsedOrderResult {

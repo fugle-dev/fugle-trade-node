@@ -24,7 +24,8 @@
         "errCode": "00000000",
         "errMsg": "",
         "avgPrice": "0",
-        "bsFlag": "R"
+        "bsFlag": "R",
+        "memo": ""
       },
       {
         "workDate": "20220222",
@@ -50,7 +51,8 @@
         "errCode": "00000000",
         "errMsg": "",
         "avgPrice": "0.0",
-        "bsFlag": "R"
+        "bsFlag": "R",
+        "memo": ""
       }
     ]
   }

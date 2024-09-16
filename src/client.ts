@@ -116,6 +116,7 @@ export class Client {
     return parsed.data.orderResults.map(order => new PlacedOrder({ ...order }));
   }
 
+  // Must login first
   async getHistoricalOrders(options: { startDate: string, endDate: string }): Promise<PlacedOrder[]> {
     const market: Market = Market.All;
     const { startDate, endDate } = options;

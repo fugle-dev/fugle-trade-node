@@ -45,12 +45,12 @@ export interface ParsedTransactions {
   };
 }
 
-//helper function to map memo prop to userDef, can be remove after sdk update
+// Helper function to map memo prop to userDef, can be remove after sdk update
 export function renameTransactionsMemoToUserDef(parsedTransactions: ParsedTransactions): ParsedTransactions {
   // Helper function to rename memo to userDef in TradeDate objects
   const renameInTradeDate = (tradeDate: TradeDate & { memo?: string }): TradeDate => {
     const { memo, ...rest } = tradeDate;
-    return { ...rest, userDef: memo || "" };
+    return { ...rest, userDef: memo || '' };
   };
 
   // Helper function to rename memo to userDef in Trade objects

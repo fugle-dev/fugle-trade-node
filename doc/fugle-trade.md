@@ -7,10 +7,11 @@
   - [fugle.login()](#fuglelogin)
   - [fugle.logout()](#fuglelogout)
   - [fugle.placeOrder(order)](#fugleplaceorderorder)
+  - [fugle.getOrders()](#fuglegetorders)
   - [fugle.replacePrice(order, price)](#fuglereplacepriceorder-price)
   - [fugle.replaceQuantity(order, quantity)](#fuglereplacequantityorder-quantity)
   - [fugle.cancelOrder(order)](#fuglecancelorderorder)
-  - [fugle.getOrders()](#fuglegetorders)
+  - [fugle.getHistoricalOrders()](#fuglegethistoricalorders)
   - [fugle.getTransactions(options)](#fuglegettransactionsoptions)
   - [fugle.getInventories()](#fuglegetinventories)
   - [fugle.getSettlements()](#fuglegetsettlements)
@@ -18,8 +19,8 @@
   - [fugle.getTradeStatus()](#fuglegettradestatus)
   - [fugle.getMarketStatus()](#fuglegetmarketstatus)
   - [fugle.getKeyInfo()](#fuglegetkeyinfo)
-  - [fugle.getMachineTime()](#fuglegetmachinetime)
   - [fugle.getCertInfo()](#fuglegetcertinfo)
+  - [fugle.getMachineTime()](#fuglegetmachinetime)
   - [fugle.streamer](#fuglestreamer)
     - [Event: 'connect'](#event-connect)
     - [Event: 'disconnect'](#event-disconnect)
@@ -71,11 +72,27 @@ Create a new `FugleTrade` instance.
 
 Log in to the remote server to begin using services.
 
+```js
+const { FugleTrade } = require('@fugle/trade');
+
+const fugle = new FugleTrade({ configPath: '/path/to/config.ini' });
+
+fugle.login().then(() => {
+  // Do something
+});
+```
+
 ### `fugle.logout()`
 
 - Returns: {Promise} Fulfills with `undefined` upon success.
 
 Log out and remove the credentials of the logged in account.
+
+```js
+fugle.logout().then(() => {
+  // Do something
+});
+```
 
 ### `fugle.placeOrder(order)`
 
@@ -83,6 +100,77 @@ Log out and remove the credentials of the logged in account.
 - Returns: {Promise} Fulfills with an {PlaceOrderResponse} upon success.
 
 Place an order for the logged in account.
+
+```js
+const { FugleTrade, Order } = require('@fugle/trade');
+
+const fugle = new FugleTrade({ configPath: '/path/to/config.ini' });
+
+fugle.login().then(() => {
+  const order = new Order({
+    buySell: Order.Side.Buy,
+    price: 25.00,
+    stockNo: '2884',
+    quantity: 1,
+    apCode: Order.ApCode.Common,
+    priceFlag: Order.PriceFlag.Limit,
+    bsFlag: Order.BsFlag.ROD,
+    trade: Order.Trade.Cash,
+  });
+  fugle.placeOrder(order).then((res) => console.log(res));
+});
+
+// Prints:
+// {
+//   ordDate: '20220310',  // order date
+//   ordTime: '094932438', // order time
+//   ordType: '2',         // order status (1: pre-scheduled order, 2: intraday order)
+//   ordNo: 'A4461',       // order number
+//   retCode: '000000',    // result code
+//   retMsg: '',           // error message
+//   workDate: '20220310'  // valid transaction date
+// }
+```
+
+### `fugle.getOrders()`
+
+- Returns: {Promise} Fulfills with {PlacedOrder[]} upon success.
+
+Gets existing orders of the logged account.
+
+```js
+fugle.login().then(() => {
+  fugle.getOrders().then(res => console.log(res[0].toObject()));
+});
+
+// Prints: 
+// {
+//   apCode: '1',          // market type
+//   avgPrice: 0.0,        // average transaction price
+//   bsFlag: 'R',          // order condition
+//   buySell: 'B',         // buy/sell indicator
+//   celQty: 1,            // cancelled quantity (lots)
+//   celQtyShare: 1000,    // cancelled quantity (shares)
+//   celable: '2',         // cancellable status (1: cancellable, 2: not cancellable)
+//   errCode: '00000000',  // error code
+//   errMsg: '',           // error message
+//   matQty: 0,            // matched quantity (lots)
+//   matQtyShare: 0,       // matched quantity (shares)
+//   odPrice: 25.95,       // order price
+//   ordDate: '20220310',  // original order date
+//   ordNo: 'A4461',       // order number
+//   ordStatus: '2',       // order status (1: pre-scheduled, 2: intraday)
+//   ordTime: '094932438', // original order time
+//   orgQty: 1,            // original order quantity (lots)
+//   orgQtyShare: 1000,    // original order quantity (shares)
+//   preOrdNo: '',         // pre-scheduled order number
+//   priceFlag: '2',       // price flag
+//   stockNo: '2884',      // stock code
+//   trade: '0',           // trade type
+//   workDate: '20220310', // valid transaction date
+//   memo: ''              // custom field
+// }
+```
 
 ### `fugle.replacePrice(order, price)`
 
@@ -92,6 +180,23 @@ Place an order for the logged in account.
 
 Replace the order to change price for the logged in account.
 
+```js
+fugle.login().then(() => {
+  fugle.getOrders().then(orders => {
+    const [ order, ...others ] = orders;
+    fugle.replacePrice(order, 24.5).then(res => console.log(res));
+  });
+});
+
+// Prints:
+// {
+//   retCcode: '000000',  // result code
+//   retMsg: '',          // error message
+//   ordDate: '20220310', // modified order date
+//   ordTime: '104605207' // modified order time
+// }
+```
+
 ### `fugle.replaceQuantity(order, quantity)`
 
 - `order` {PlacedOrder} The working order to be replaced.
@@ -99,6 +204,23 @@ Replace the order to change price for the logged in account.
 - Returns: {Promise} Fulfills with an {ReplaceOrderResponse} upon success.
 
 Replace the order to change quantity for the logged in account.
+
+```js
+fugle.login().then(() => {
+  fugle.getOrders().then(orders => {
+    const [ order, ...others ] = orders;
+    fugle.replaceQuantity(order, 1).then(res => console.log(res));
+  });
+});
+
+// Prints:
+// {
+//   retCcode: '000000',  // result code
+//   retMsg: '',          // error message
+//   ordDate: '20220310', // modified order date
+//   ordTime: '104605207' // modified order time
+// }
+```
 
 ### `fugle.replaceOrder(order, options)`
 
@@ -110,6 +232,24 @@ Replace the order to change quantity for the logged in account.
 
 Replace the order for the logged in account. Note that one and only one of the `price` or `quantity` options must be specified.
 
+```js
+fugle.login().then(() => {
+  fugle.getOrders().then(orders => {
+    const [ order, ...others ] = orders;
+    const options = { price: 24.5 , quantity: 1 };
+    fugle.replaceOrder(order, options).then(res => console.log(res));
+  });
+});
+
+// Prints:
+// {
+//   retCcode: '000000',  // result code
+//   retMsg: '',          // error message
+//   ordDate: '20220310', // modified order date
+//   ordTime: '104605207' // modified order time
+// }
+```
+
 ### `fugle.cancelOrder(order)`
 
 - `order` {PlacedOrder} The working order to be canceled.
@@ -117,11 +257,66 @@ Replace the order for the logged in account. Note that one and only one of the `
 
 Cancel the order for the logged in account.
 
-### `fugle.getOrders()`
+```js
+fugle.login().then(() => {
+  fugle.getOrders().then(orders => {
+    const [ order, ...others ] = orders;
+    fugle.cancelOrder(order).then(res => console.log(res));
+  });
+});
 
+// Prints:
+// {
+//   retCcode: '000000',  // result code
+//   retMsg: '',          // error message
+//   ordDate: '20220310', // modified order date
+//   ordTime: '104605207' // modified order time
+// }
+```
+
+### `fugle.getHistoricalOrders()`
+
+- `options` {Object} Set of configurable options to get historical orders.
+  - `startDate` {string} The start date.
+  - `endDate` {string} The end date.
 - Returns: {Promise} Fulfills with {PlacedOrder[]} upon success.
 
-Gets existing orders of the logged account.
+Gets historical orders of the logged account.
+
+```js
+fugle.login().then(() => {
+  const options = { startDate: '2022-03-01', endDate: '2022-03-31' };
+  fugle.getHistoricalOrders().then(res => console.log(res[0].toObject()));
+});
+
+// Prints: 
+// {
+//   apCode: '1',          // market type
+//   avgPrice: 0.0,        // average transaction price
+//   bsFlag: 'R',          // order condition
+//   buySell: 'B',         // buy/sell indicator
+//   celQty: 1,            // cancelled quantity (lots)
+//   celQtyShare: 1000,    // cancelled quantity (shares)
+//   celable: '2',         // cancellable status (1: cancellable, 2: not cancellable)
+//   errCode: '00000000',  // error code
+//   errMsg: '',           // error message
+//   matQty: 0,            // matched quantity (lots)
+//   matQtyShare: 0,       // matched quantity (shares)
+//   odPrice: 25.95,       // order price
+//   ordDate: '20220310',  // original order date
+//   ordNo: 'A4461',       // order number
+//   ordStatus: '2',       // order status (1: pre-scheduled, 2: intraday)
+//   ordTime: '094932438', // original order time
+//   orgQty: 1,            // original order quantity (lots)
+//   orgQtyShare: 1000,    // original order quantity (shares)
+//   preOrdNo: '',         // pre-scheduled order number
+//   priceFlag: '2',       // price flag
+//   stockNo: '2884',      // stock code
+//   trade: '0',           // trade type
+//   workDate: '20220310', // valid transaction date
+//   memo: ''              // custom field
+// }
+```
 
 ### `fugle.getTransactions(options)`
 
@@ -133,11 +328,116 @@ Gets existing orders of the logged account.
 
 Gets transactions of the logged account.
 
+```js
+fugle.login().then(() => {
+  fugle.getTransactions({ duration: '0d' }).then(res => console.log(res[0]));
+});
+
+// Prints:
+// {                                // <summary>
+//   buySell: 'S',                  // buy/sell indicator
+//   cDate: '20220314',             // settlement date
+//   cost: '-16410',                // realized loss cost subtotal
+//   make: '7933',                  // realized profit
+//   makePer: '48.34',              // realized profit percentage
+//   priceAvg: '24.45',             // average transaction price
+//   priceQty: '24450',             // total amount
+//   qty: '1000',                   // transaction quantity
+//   recv: '24343',                 // realized income subtotal
+//   stkNa: 'E.SUN FHC',            // stock name
+//   stkNo: '2884',                 // stock code
+//   sType: 'H',                    // market type (H: TSE O: OTC R: Emerging)
+//   tDate: '20220310',             // transaction date
+//   trade: '0',                    // trade type (0: spot stock 3: margin purchase 4: short sale A: day trading sell)
+//   matDats: [
+//     {                            // <details>
+//       buySell: 'S',              // buy/sell indicator
+//       cDate: '20220314',         // settlement date
+//       dbFee: '0',                // short sale handling fee
+//       fee: '34',                 // handling fee
+//       make: '7933',              // realized profit
+//       makePer: '48.34',          // realized profit percentage
+//       orderNo: 'A7828002924570', // order number
+//       payN: '24343',             // net amount
+//       price: '24.45',            // transaction price
+//       priceQty: '24450',         // total amount
+//       qty: '1000',               // transaction quantity
+//       sType: 'H',                // market type (H: TSE O: OTC R: Emerging)
+//       stkNa: 'E.SUN FHC',        // stock name
+//       stkNo: '2884',             // stock code
+//       tDate: '20220310',         // transaction date
+//       tTime: '090819800',        // transaction time
+//       tax: '73',                 // transaction tax
+//       taxG: '0',                 // securities transaction tax
+//       trade: '0',                // trade type (0: spot stock 3: margin purchase 4: short sale A: day trading sell)
+//       memo: ''                   // custom field
+//     }
+//   ]
+// }
+```
+
 ### `fugle.getInventories()`
 
 - Returns: {Promise} Fulfills with {Stock[]} upon success.
 
 Gets inventories of the logged account.
+
+```js
+fugle.login().then(() => {
+  fugle.getInventories().then(res => console.log(res[0]));
+});
+
+// Prints:
+// {
+//   apCode: '',                  // market type
+//   costQty: '1150',             // cost quantity
+//   costSum: '-103235',          // total cost
+//   makeAPer: '51.59',           // unrealized profit percentage
+//   makeASum: '53255',           // unrealized profit subtotal
+//   priceAvg: '89.63',           // average transaction price
+//   priceEvn: '89.99',           // break-even price
+//   priceMkt: '136.45',          // current price (excluding dividend adjustments)
+//   priceNow: '136.45',          // current price (including dividend adjustments)
+//   priceQtySum: '103074',       // total price amount
+//   qtyB: '0',                   // today's buy order quantity
+//   qtyBm: '0',                  // today's executed buy quantity
+//   qtyC: '0',                   // adjusted quantity (cash compensation / transfer)
+//   qtyL: '1150',                // previous day's remaining quantity
+//   qtyS: '0',                   // today's sell order quantity
+//   qtySm: '0',                  // today's executed sell quantity
+//   recVaSum: '156490',          // unrealized income subtotal
+//   stkNa: '元大台灣50',          // stock name
+//   stkNo: '0050',               // stock code
+//   sType: 'H',                  // market type (H: TWSE O: OTC R: Emerging)
+//   trade: '0',                  // trade type
+//   valueMkt: '13645',           // market value (excluding dividend adjustments)
+//   valueNow: '13645',           // market value (including dividend adjustments)
+//   stkDats: [
+//     { 
+//       buySell: 'B',
+//       costR: '0',              // apportioned cost
+//       fee: '18',               // handling fee
+//       makeA: '804',            // unrealized profit
+//       makeAPer: '6.28',        // unrealized profit percentage
+//       ordNo: 'D3660038938518', // order number
+//       payN: '-12808',          // net amount
+//       price: '127.90',         // transaction price
+//       priceEvn: '128.41',      // break-even price
+//       qty: '100',              // stock quantity
+//       qtyC: '0',               // adjusted quantity (cash compensation / transfer)
+//       qtyH: '0',               // quantity with high maintenance ratio
+//       qtyR: '0',               // apportioned quantity
+//       tDate: '20210512',       // transaction date
+//       tTime: '',               // transaction time
+//       tax: '0',                // transaction tax
+//       taxG: '0',               // securities transaction tax
+//       trade: '0',              // trade type
+//       valueMkt: '13645',       // market value (excluding dividend adjustments)
+//       valueNow: '13645',       // market value (including dividend adjustments)
+//       memo: ''                 // custom field
+//   }]
+// }
+```
 
 ### `fugle.getSettlements()`
 
@@ -145,11 +445,39 @@ Gets inventories of the logged account.
 
 Gets incoming settlements of the logged account.
 
+```js
+fugle.login().then(() => {
+  fugle.getSettlements().then(res => console.log(res[0]));
+});
+
+// Prints:
+// {
+//   cDate: '20220310', // settlement date
+//   date: '20220308',  // transaction date
+//   price: '-80912'    // settlement amount payable/receivable
+// }
+```
+
 ### `fugle.getBalance()`
 
 - Returns: {Promise} Fulfills with an {BalanceStatus} upon success.
 
 Gets bank account balance of the logged account.
+
+```js
+fugle.login().then(() => {
+  fugle.getBalance().then(res => console.log(res));
+});
+
+// Prints:
+// {
+//   availableBalance: 500000,   // available bank balance
+//   exchangeBalance: 100000,    // today's exchange amount
+//   stockPreSaveAmount: 100000, // reserved amount
+//   isLatestData: true,         // is the data up-to-date
+//   updatedAt: 1676735999       // last updated timestamp
+// }
+```
 
 ### `fugle.getTradeStatus()`
 
@@ -157,11 +485,40 @@ Gets bank account balance of the logged account.
 
 Gets trading quota and margin transaction information of the logged account.
 
+```js
+fugle.login().then(() => {
+  fugle.getTradeStatus().then(res => console.log(res));
+});
+
+// Prints:
+// {
+//   tradeLimit: 0,       // trading limit
+//   marginLimit: 500000, // margin limit
+//   shortLimit: 500000,  // short selling limit
+//   dayTradeCode: 'X',   // day trading status code (X: enabled Y: buy first, sell only N: disabled S: paused)
+//   marginCode: '0',     // margin trading status code (0: tradable 1: buy only 2: sell only 9: not tradable)
+//   shortCode: '0'       // short selling status code (0: tradable 1: buy only 2: sell only 9: not tradable)
+// }
+```
+
 ### `fugle.getMarketStatus()`
 
 - Returns: {Promise} Fulfills with an {MarketStatus} upon success.
 
 Gets market open status.
+
+```js
+fugle.login().then(() => {
+  fugle.getMarketStatus().then(res => console.log(res));
+});
+
+// Prints:
+// {
+//   isTradingDay: true,         // is the market open today
+//   lastTradingDay: '20221017', // previous trading date
+//   nextTradingDay: '20221019'  // next trading date
+// }
+```
 
 ### `fugle.getKeyInfo()`
 
@@ -169,17 +526,51 @@ Gets market open status.
 
 Gets API key information of the logged account.
 
-### `fugle.getMachineTime()`
+```js
+fugle.login().then(() => {
+  fugle.getKeyInfo().then(res => console.log(res));
+});
 
-- Returns: {Promise} Fulfills with {string} upon success.
-
-Gets machine time of the remote server. If the time difference between the local time and the remote machine is too large, the verification process will fail.
+// Prints:
+// {
+//   apiKey: 'XXXXXXXXXXXXX', // API key
+//   apiKeyMemo: '',          // API key notes
+//   apiKeyName: '',          // API key name
+//   createdAt: { nanos: 683000000, seconds: 1720359631 }, // API key creation time
+//   scope: 'C',              // API key permissions
+//   status: 1                // API key status
+// }
+```
 
 ### `fugle.getCertInfo()`
 
 - Returns: {Promise} Fulfills with {CertInfo} upon success.
 
 Gets the certificate information.
+
+```js
+fugle.getCertInfo().then(res => console.log(res));
+
+// Prints:
+// {
+//   serial: '7DA4C168',             // certificate serial number
+//   isValid: true,                  // certificate is valid
+//   notAfter: 1676735999,           // certificate expiration time
+//   cn: 'A123456789-00-00::PCC005'  // certificate name
+// }
+```
+
+### `fugle.getMachineTime()`
+
+- Returns: {Promise} Fulfills with {string} upon success.
+
+Gets machine time of the remote server. If the time difference between the local time and the remote machine is too large, the verification process will fail.
+
+```js
+fugle.getMachineTime().then(res => console.log(res));
+
+// Prints: 2022-03-10 10:23:48.464
+```
 
 ### `fugle.streamer`
 

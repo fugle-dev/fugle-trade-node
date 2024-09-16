@@ -56,12 +56,12 @@ export interface ParsedInventories {
   }
 }
 
-//helper function to map memo prop to userDef, can be remove after sdk update
+// Helper function to map memo prop to userDef, can be remove after sdk update
 export function renameInventoriesMemoToUserDef(parsedTransactions: ParsedInventories): ParsedInventories {
   // Helper function to rename memo to userDef in StockDat objects
   const renameInStockDat = (stockDat: StockDat & { memo?: string }): StockDat => {
     const { memo, ...rest } = stockDat;
-    return { ...rest, userDef: memo || "" };
+    return { ...rest, userDef: memo || '' };
   };
 
   // Helper function to rename memo to userDef in Stock objects

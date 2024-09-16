@@ -30,12 +30,12 @@ export interface ParsedOrderResultHistory {
   };
 }
 
-//helper function to map memo prop to userDef, can be remove after sdk update
+// Helper function to map memo prop to userDef, can be remove after sdk update
 export function renameMemoToUserDef(parsedTransactions: ParsedOrderResultHistory): ParsedOrderResultHistory {
   // Helper function to rename memo to userDef in OrderResultHistory objects
   const renameInOrderResultHistory = (tradeDate: OrderResultHistory & { memo?: string }): OrderResultHistory => {
     const { memo, ...rest } = tradeDate;
-    return { ...rest, userDef: memo || "" };
+    return { ...rest, userDef: memo || '' };
   };
 
   // Map through the orderResultHistory array and rename memo to userDef
